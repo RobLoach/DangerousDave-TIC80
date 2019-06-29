@@ -1,0 +1,15 @@
+{
+  "name": "tic80-dangerousdave",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "wrenpack build src/index.wren --output=node_modules/cart.wren",
+    "posttest": "tic80 cart.tic -code node_modules/cart.wren -sprites src/sprites.gif"
+  },
+  "author": "Rob Loach",
+  "license": "MIT",
+  "dependencies": {
+    "wrenpack": "0.0.1"
+  }
+}
