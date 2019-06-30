@@ -15,8 +15,8 @@ class AnimationEntity is SpriteEntity {
 		super()
 		animationEntityInit()
 		_frames = frames
-		_animationSpeed = animationSpeed
 		spriteId = _frames[_currentFrame]
+		_animationSpeed = animationSpeed
 	}
 
 	animationEntityInit() {
@@ -27,6 +27,8 @@ class AnimationEntity is SpriteEntity {
 		tags.add("AnimationEntity")
 	}
 
+	animationSpeed{_animationSpeed}
+	animationSpeed=(v){_animationSpeed=v}
 	frames{_frames}
 	frames=(v){_frames=v}
 	currentFrame{_currentFrame}

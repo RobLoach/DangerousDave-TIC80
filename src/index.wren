@@ -9,6 +9,7 @@ import "Engine/Entity/CircleEntity" for CircleEntity
 import "Engine/Entity/SpriteEntity" for SpriteEntity
 import "Engine/Entity/AnimationEntity" for AnimationEntity
 import "Engine/Entity/MapEntity" for MapEntity
+import "Engine/Entity/TextEntity"
 
 class Game is TIC {
 
@@ -42,6 +43,17 @@ class Game is TIC {
 
 		var level = MapEntity.new(0, 0, 38, 20)
 		_entities.add(level)
+
+		var t = level[0,0]
+		TIC.trace(t)
+		TIC.trace(level[0,0] = 2)
+
+		var text = TextEntity.new("Hello\nWorld!")
+		text.center = _entities.center
+		text.color = 15
+		text.smallfont = true
+		text.text = "Hello World!\n\nHow are you?"
+		_entities.add(text)
 	}
 
 	TIC(){

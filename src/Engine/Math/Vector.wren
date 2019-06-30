@@ -8,7 +8,6 @@ class Vector {
 	x=(v) { _x = v }
 	y=(v) { _y = v }
 
-
 	set(x, y) {
 		_x = x
 		_y = y

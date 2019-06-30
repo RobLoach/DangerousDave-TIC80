@@ -3,6 +3,7 @@ import "RectangleEntity" for RectangleEntity
 class CircleEntity is RectangleEntity {
 	construct new() {
 		super()
+		tags.add("CircleEntity")
 	}
 
 	draw(camera) {

@@ -27,7 +27,12 @@ class MapEntity is SpriteEntity {
 	height{_worldMapCellHeight * 8 * scale}
 
 	[x, y] {
-		return mget(_worldMapCellX + x, _worldMapCellY + y)
+		return TIC.mget(_worldMapCellX + x, _worldMapCellY + y)
+	}
+
+	[x, y]=(v) {
+		TIC.mset(_worldMapCellX + x, _worldMapCellY + y, v)
+		return v
 	}
 
 	draw(camera) {

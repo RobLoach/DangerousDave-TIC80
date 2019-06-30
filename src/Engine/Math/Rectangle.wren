@@ -33,6 +33,11 @@ class Rectangle is Vector {
 	centerX=(v){x = v - width / 2}
 	centerY{y + height / 2}
 	centerY=(v){y = v - height / 2}
+	center{Vector.new(centerX, centerY)}
+	center=(v){
+		centerX = v.x
+		centerY = v.y
+	}
 
 	toString {
 		var coords = x.toString + ", " + y.toString + ", " + width.toString + ", " + height.toString

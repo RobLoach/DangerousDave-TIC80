@@ -2,3 +2,4 @@
 /node_modules
 cart.rtc
 cart.srm
+/package-lock.json

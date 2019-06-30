@@ -1,4 +1,5 @@
 import "Entity" for Entity
+import "../Math/Vector" for Vector
 
 class SpriteEntity is Entity {
 	construct new() {
@@ -30,17 +31,26 @@ class SpriteEntity is Entity {
 	}
 
 	/**
+	 * Return the X/Y coordinates from the given sprite index.
+	 */
+	static [i] {
+		return Vector.new(i % 16, i / 16)
+	}
+
+	/**
 	 * Retrieve the index of the given sprite.
 	 */
 	static [x, y] {
 		return x + 16 * y
 	}
+
 	/**
 	 * Retrieve the index of the given sprite.
 	 */
 	static [x, y, tilesize] {
 		return x * tilesize + 16 * tilesize * y
 	}
+
 	/**
 	 * Retrieve the index of the given sprite.
 	 */
