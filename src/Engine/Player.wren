@@ -9,7 +9,7 @@ class Player {
 			spritePosition(1, 8),
 			spritePosition(1, 8),
 			spritePosition(1, 8),
-			spritePosition(3, 8)
+			spritePosition(5, 6)
 		], 50, 2, 2)
 		_walking = Animation.new([
 			spritePosition(0, 8),
