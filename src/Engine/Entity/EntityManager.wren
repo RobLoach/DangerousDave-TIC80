@@ -26,14 +26,15 @@ class EntityManager is Entity {
 	[index] {
 		if (index is Num) {
 			return _entities[index]
-		} else if (index is String) {
+		}
+
+		if (index is String) {
 			for (entity in _entities) {
 				if (entity.name == index) {
 					return entity
 				}
 			}
 		}
-		return null
 	}
 	add(v) {
 		v.parent = this

@@ -3,13 +3,8 @@
 // desc:   short description
 // script: wren
 
-import "random" for Random
 import "Engine/Entity/EntityManager" for EntityManager
-import "Engine/Entity/CircleEntity" for CircleEntity
-import "Engine/Entity/SpriteEntity" for SpriteEntity
-import "Engine/Entity/AnimationEntity" for AnimationEntity
 import "Game/Level" for Level
-import "Engine/Entity/TextEntity"
 
 class Game is TIC {
 
