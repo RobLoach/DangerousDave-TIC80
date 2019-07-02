@@ -26,13 +26,14 @@ class Gem is AnimationEntity {
 	}
 
 	active{_active}
+	active=(v){_active=v}
 
 	update() {
 		if (!_active) {
 			return
 		}
 		if (!_player) {
-			_player = _level.getEntity("player")
+			_player = _level["player"]
 		}
 		if (collisionRect(_player)) {
 			_active = false
@@ -44,7 +45,11 @@ class Gem is AnimationEntity {
 	draw(camera) {
 		if (_active) {
 			super(camera)
-		} else if (name == "trophy gem") {
+			return
+		}
+
+		// If the Trophy was taken, display a message.
+		if (name == "trophy gem") {
  			var textWidth = TIC.print("GET TO THE DOOR!", -999, -999, 14)
  			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 / 2 + 5, 14)
 		}

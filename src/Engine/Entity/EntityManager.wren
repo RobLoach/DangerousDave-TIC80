@@ -27,7 +27,11 @@ class EntityManager is Entity {
 		if (index is Num) {
 			return _entities[index]
 		} else if (index is String) {
-			return getEntity(index)
+			for (entity in _entities) {
+				if (entity.name == index) {
+					return entity
+				}
+			}
 		}
 		return null
 	}
@@ -48,15 +52,6 @@ class EntityManager is Entity {
 			}
 		}
 		return out
-	}
-
-	getEntity(name) {
-		for (entity in _entities) {
-			if (entity.name == name) {
-				return entity
-			}
-		}
-		return null
 	}
 
 	prioritize(name) {

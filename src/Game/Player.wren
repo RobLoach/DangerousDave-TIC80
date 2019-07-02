@@ -36,9 +36,7 @@ class Player is AnimationEntity {
 		name = "player"
 		_state = "standing"
 		currentFrame=frames[0]
-
 		_onground = true
-
 	}
 
 	update() {

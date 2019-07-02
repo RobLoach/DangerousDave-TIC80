@@ -31,7 +31,6 @@ class Game is TIC {
 		// Bound the camera to the player.
 		_entities.centerX = player.centerX
 		_entities.centerY = player.centerY
-
 		if (_entities.top < 0) {
 			_entities.top = 0
 		}
@@ -46,6 +45,5 @@ class Game is TIC {
 		}
 
 		_entities.draw()
-
 	}
 }
