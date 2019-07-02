@@ -26,8 +26,8 @@ class Game is TIC {
 		TIC.cls(0)
 
 		_entities.update()
-		var player = _entities.getEntity("player")
-		var level = _entities.getEntity("MapEntity")
+		var player = _entities["player"]
+		var level = _entities["level"]
 
 
 

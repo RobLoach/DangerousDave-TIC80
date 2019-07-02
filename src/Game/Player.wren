@@ -33,7 +33,7 @@ class Player is AnimationEntity {
 		frames = _idle
 		tileWidth = 2
 		tileHeight = 2
-		tags.add("player")
+		name = "player"
 		_state = "standing"
 		currentFrame=frames[0]
 
@@ -45,13 +45,6 @@ class Player is AnimationEntity {
 		var oldPosition = position
 
 		// Move vertically.
-		/*if (TIC.btn(0)) {
-			y = y - 1
-		}
-		if (TIC.btn(1)) {
-			y = y + 1
-		}*/
-
 		var gravity = 0.025
 
 		velocity.y = velocity.y + gravity

@@ -23,7 +23,14 @@ class EntityManager is Entity {
 		}
 	}
 
-	[index] {_entities[index]}
+	[index] {
+		if (index is Num) {
+			return _entities[index]
+		} else if (index is String) {
+			return getEntity(index)
+		}
+		return null
+	}
 	add(v) {
 		_entities.add(v)
 	}
@@ -42,10 +49,11 @@ class EntityManager is Entity {
 		return out
 	}
 
-	getEntity(tag) {
-		var out = getEntities(tag)
-		if (out.count > 0) {
-			return out[0]
+	getEntity(name) {
+		for (entity in _entities) {
+			if (entity.name == name) {
+				return entity
+			}
 		}
 		return null
 	}
