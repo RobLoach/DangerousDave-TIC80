@@ -52,19 +52,23 @@ class Player is AnimationEntity {
 			y = y + 1
 		}*/
 
-		velocity.y = velocity.y + 0.025
+		var gravity = 0.025
+
+		velocity.y = velocity.y + gravity
 		if (velocity.y > 2) {
 			velocity.y = 2
 		}
+
+		// Jump
 		if (_onground) {
 			if (TIC.btn(0)) {
 				_onground = false
 				frames = _jumping
-				updateFrame()
 				velocity.y = -0.9
 			}
 		}
 
+		// Apply the desired y change.
 		y = y + velocity.y
 
 		// Test allowing the vertical move.
@@ -77,37 +81,36 @@ class Player is AnimationEntity {
 				_onground = true
 				velocity.y = 0
 				frames = _idle
-				updateFrame()
 			} else {
 				top = collisionRect.bottom
 				velocity.y = 0
 			}
 		}
 		if (velocity.y > 0) {
+			// If the player was on the ground, and fell off a ledge.
+			if (_onground) {
+				velocity.y = gravity * 15
+			}
 			frames = _falling
-			updateFrame()
 			_onground = false
 		}
 
 		// Move horizontally.
+		var horizontalSpeed = 1
 		if (TIC.btn(2)) {
-			x = x - 1
+			x = x - horizontalSpeed
 			flip = 1
 			if (_onground) {
 				frames = _walking
-				updateFrame()
 			}
 		}
 		if (TIC.btn(3)) {
-			x = x + 1
+			x = x + horizontalSpeed
 			flip = 0
 			if (_onground) {
 				frames = _walking
-				updateFrame()
 			}
 		}
-
-		//x = x + velocity.x
 
 		// Test to make sure it's possible.
 		collide = Rectangle.new(x, y, width,height)

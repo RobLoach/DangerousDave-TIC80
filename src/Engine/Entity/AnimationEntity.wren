@@ -32,6 +32,7 @@ class AnimationEntity is SpriteEntity {
 	frames{_frames}
 	frames=(v){
 		_frames=v
+		updateFrame()
 	}
 	currentFrame{_currentFrame}
 	currentFrame=(v){_currentFrame=v}
