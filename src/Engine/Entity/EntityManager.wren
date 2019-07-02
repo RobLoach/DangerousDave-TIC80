@@ -32,13 +32,14 @@ class EntityManager is Entity {
 		return null
 	}
 	add(v) {
+		v.parent = this
 		_entities.add(v)
 	}
 	clear() {
 		_entities.clear()
 	}
 
-	getEntities() {_entities}
+	entities{_entities}
 	getEntities(tag) {
 		var out = []
 		for (entity in _entities) {
@@ -56,5 +57,19 @@ class EntityManager is Entity {
 			}
 		}
 		return null
+	}
+
+	prioritize(name) {
+		// TODO: Figure out true zindex sorting.
+		var i = 0
+		for (entity in _entities) {
+			if (entity.name == name) {
+				_entities.removeAt(i)
+				_entities.add(entity)
+				return this
+			}
+			i = i + 1
+		}
+		return this
 	}
 }

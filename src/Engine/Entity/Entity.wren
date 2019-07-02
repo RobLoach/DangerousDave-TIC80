@@ -18,6 +18,8 @@ class Entity is Rectangle {
 		return false
 	}
 
+	parent{_parent}
+	parent=(v){_parent=v}
 	name{_name}
 	name=(v){_name=v}
 	velocity{_velocity}

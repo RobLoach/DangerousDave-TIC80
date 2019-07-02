@@ -45,8 +45,8 @@ class Gem is AnimationEntity {
 		if (_active) {
 			super(camera)
 		} else if (name == "trophy gem") {
- 			var textWidth = TIC.print("GET TO THE DOOR", -999, -999, 14)
- 			TIC.print("GET TO THE DOOR", 240 / 2 - textWidth / 2, 136 / 2 + 5, 14)
+ 			var textWidth = TIC.print("GET TO THE DOOR!", -999, -999, 14)
+ 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 / 2 + 5, 14)
 		}
 	}
 }

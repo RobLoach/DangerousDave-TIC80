@@ -14,12 +14,11 @@ import "Engine/Entity/TextEntity"
 class Game is TIC {
 
 	construct new(){
-		//_level = Level.new()
-
 		_entities = EntityManager.new()
 		var level = Level.new(_entities)
 		_entities.add(level)
-
+		_entities.prioritize("player")
+		_entities.prioritize("trophy gem")
 	}
 
 	TIC(){
@@ -28,9 +27,6 @@ class Game is TIC {
 		_entities.update()
 		var player = _entities["player"]
 		var level = _entities["level"]
-
-
-
 
 		// Bound the camera to the player.
 		_entities.centerX = player.centerX
@@ -48,7 +44,6 @@ class Game is TIC {
 		if (_entities.right > level.right) {
 			_entities.right = level.right
 		}
-
 
 		_entities.draw()
 
