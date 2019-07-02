@@ -9,6 +9,15 @@ class Entity is Rectangle {
 		_tags = []
 	}
 
+	hasTag(v){
+		for (tag in tags) {
+			if (tag == v) {
+				return true
+			}
+		}
+		return false
+	}
+
 	name{_name}
 	name=(v){_name=v}
 	velocity{_velocity}

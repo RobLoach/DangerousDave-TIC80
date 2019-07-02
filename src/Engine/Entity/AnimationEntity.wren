@@ -30,20 +30,25 @@ class AnimationEntity is SpriteEntity {
 	animationSpeed{_animationSpeed}
 	animationSpeed=(v){_animationSpeed=v}
 	frames{_frames}
-	frames=(v){_frames=v}
+	frames=(v){
+		_frames=v
+	}
 	currentFrame{_currentFrame}
 	currentFrame=(v){_currentFrame=v}
+	updateFrame() {
+		if (_currentFrame >= _frames.count) {
+			_currentFrame = 0
+		}
+		spriteId = _frames[_currentFrame]
+	}
 
 	update() {
 		super()
 		_t = _t + 1
 		if (_t > _animationSpeed) {
 			_currentFrame = _currentFrame + 1
-			if (_currentFrame >= _frames.count) {
-				_currentFrame = 0
-			}
-			spriteId = _frames[_currentFrame]
 			_t = 0
+			updateFrame()
 		}
 	}
 }

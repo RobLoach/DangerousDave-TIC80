@@ -26,6 +26,9 @@ class MapEntity is SpriteEntity {
 	width{_worldMapCellWidth * 8 * scale}
 	height{_worldMapCellHeight * 8 * scale}
 
+	mapWidth{_worldMapCellWidth}
+	mapHeight{_worldMapCellHeight}
+
 	[x, y] {
 		return TIC.mget(_worldMapCellX + x, _worldMapCellY + y)
 	}

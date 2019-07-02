@@ -20,6 +20,12 @@ class Rectangle is Vector {
 	height{_size.y}
 	width=(v) {_size.x = v}
 	height=(v) {_size.y = v}
+	position{Vector.new(x, y)}
+	position=(v){
+		x = v.x
+		y = v.y
+		v
+	}
 
 	right{x+width}
 	right=(v){x=v-width}
@@ -37,10 +43,48 @@ class Rectangle is Vector {
 	center=(v){
 		centerX = v.x
 		centerY = v.y
+		v
+	}
+
+	collisionRect(rect2) {
+		return x < rect2.right && right > rect2.x && y < rect2.y + rect2.height && bottom > rect2.y
+	}
+	collisionRect(rectX, rectY, rectWidth, rectHeight) {
+		var x_overlaps = (left < rectX + rectWidth) && (right > rectX)
+		var y_overlaps = (top < rectY+rectHeight) && (bottom > rectY)
+		return x_overlaps && y_overlaps
+	}
+	collisionCircle(circle2X, circle2Y, circle2Radius) {
+		var dx = centerX - circle2X
+		var dy = centerY - circle2Y
+		var distance = (dx * dx + dy * dy).sqrt
+
+		return distance < width / 2 + circle2Radius
 	}
 
 	toString {
 		var coords = x.toString + ", " + y.toString + ", " + width.toString + ", " + height.toString
 		return "Rectangle(" + coords + ")"
+	}
+
+
+	perimiter() {
+		2 * (x + y)
+	}
+
+	area() {
+		2*x + 2*y
+	}
+	union(rect) {
+		if (!collisionRect(rect)) {
+			return null
+		}
+
+		var base_x = (rect.x..x).max
+		var base_y = (rect.y..y).max
+		var max_x = (rect.width..width).min
+		var max_y = (rect.height..height).min
+
+		return Rectangle.new(base_x, base_y, max_x, max_y)
 	}
 }

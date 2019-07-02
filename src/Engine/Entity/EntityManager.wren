@@ -35,11 +35,8 @@ class EntityManager is Entity {
 	getEntities(tag) {
 		var out = []
 		for (entity in _entities) {
-			for (entityTag in entity.tags) {
-				if (entityTag == tag) {
-					out.add(entity)
-					break
-				}
+			if (entity.hasTag(tag)) {
+				out.add(entity)
 			}
 		}
 		return out
