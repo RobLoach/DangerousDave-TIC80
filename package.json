@@ -1,14 +1,14 @@
 {
   "name": "tic80-dangerousdave",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Remake of the 1988 PC classic, Dangerous Dave. Built using TIC-80.",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "wrenpack build src/index.wren --output=node_modules/cart.wren --minify --prefix=\"// title: Dangerous Dave\n// author: RobLoach\n// desc: Dangerous Dave\n// input: gamepad\n// script: wren\"",
+    "test": "wrenpack build src/index.wren --output=node_modules/cart.wren --minify --prefix=\"// title: Dangerous Dave\n// author: RobLoach\n// desc: Remake of the 1988 PC classic, Dangerous Dave\n// input: gamepad\n// script: wren\"",
     "posttest": "tic80 cart.tic -code node_modules/cart.wren -sprites src/Resources/sprites.gif"
   },
   "author": "Rob Loach",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "dependencies": {
     "wrenpack": "^1.0.0"
   }

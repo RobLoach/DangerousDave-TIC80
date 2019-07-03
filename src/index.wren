@@ -1,6 +1,6 @@
-// title:  game title
-// author: game developer
-// desc:   short description
+// title: Dangerous Dave
+// author: RobLoach
+// desc: Remake of the 1988 PC classic, Dangerous Dave
 // script: wren
 
 import "Engine/Entity/EntityManager" for EntityManager
@@ -9,36 +9,54 @@ import "Game/Level" for Level
 class Game is TIC {
 
 	construct new(){
-		_entities = EntityManager.new()
-		var level = Level.new(_entities)
-		_entities.add(level)
-		_entities.prioritize("player")
-		_entities.prioritize("trophy gem")
+		_mainMenu = EntityManager.new()
+		_mainMenu.name = "MainMenu"
+		var mainMenuLevel = Level.new(_mainMenu, 0, 34, 30, 17)
+		_mainMenu.add(mainMenuLevel)
+		_mainMenu.prioritize("logo")
+
+
+		_game = EntityManager.new()
+		_game.name = "Game"
+		var level = Level.new(_game, 0, 0, 38, 20)
+		_game.add(level)
+		_game.prioritize("player")
+		_game.prioritize("trophy gem")
+
+		_state = _mainMenu
 	}
 
 	TIC(){
 		TIC.cls(0)
+		_state.update()
 
-		_entities.update()
-		var player = _entities["player"]
-		var level = _entities["level"]
+		if (_state.name == "MainMenu") {
+			if (_state["logo"].done) {
+				_state = _game
+			}
+		} else if (_state.name == "Game") {
+			var player = _game["player"]
+			var level = _game["level"]
 
-		// Bound the camera to the player.
-		_entities.centerX = player.centerX
-		_entities.centerY = player.centerY
-		if (_entities.top < 0) {
-			_entities.top = 0
-		}
-		if (_entities.bottom > level.bottom) {
-			_entities.bottom = level.bottom
-		}
-		if (_entities.left < 0) {
-			_entities.left = 0
-		}
-		if (_entities.right > level.right) {
-			_entities.right = level.right
+			if (player && level) {
+				// Bound the camera to the player.
+				_game.centerX = player.centerX
+				_game.centerY = player.centerY
+				if (_game.top < 0) {
+					_game.top = 0
+				}
+				if (_game.bottom > level.bottom) {
+					_game.bottom = level.bottom
+				}
+				if (_game.left < 0) {
+					_game.left = 0
+				}
+				if (_game.right > level.right) {
+					_game.right = level.right
+				}
+			}
 		}
 
-		_entities.draw()
+		_state.draw()
 	}
 }

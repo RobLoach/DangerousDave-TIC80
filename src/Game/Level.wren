@@ -4,10 +4,13 @@ import "../Engine/Entity/SpriteEntity" for SpriteEntity
 import "Gem"
 import "Player"
 import "Door"
+import "Logo"
+import "Death"
 
 class Level is MapEntity {
-	construct new (manager) {
-		super(0, 0, 38, 20)
+
+	construct new (manager, mapX, mapY, mapWidth, mapHeight) {
+		super(mapX, mapY, mapWidth, mapHeight)
 		name = "level"
 
 		_tileTypes = {
@@ -31,30 +34,46 @@ class Level is MapEntity {
 			SpriteEntity[15, 2]: "wall",
 			SpriteEntity[14, 3]: "wall",
 			SpriteEntity[15, 3]: "wall",
-			SpriteEntity[14, 10]: "blue gem", // Blue Gem
-			SpriteEntity[15, 10]: "body",
-			SpriteEntity[14, 11]: "body",
-			SpriteEntity[15, 11]: "body",
-			SpriteEntity[10, 12]: "player",
-			SpriteEntity[11, 12]: "body",
-			SpriteEntity[10, 13]: "body",
-			SpriteEntity[11, 13]: "body",
+			SpriteEntity[14, 8]: "blue gem", // Blue Gem
+			SpriteEntity[15, 8]: "body",
+			SpriteEntity[14, 9]: "body",
+			SpriteEntity[15, 9]: "body",
+			SpriteEntity[10, 10]: "player", // player
+			SpriteEntity[11, 10]: "body",
+			SpriteEntity[10, 11]: "body",
+			SpriteEntity[11, 11]: "body",
 			SpriteEntity[4, 2]: "trophy gem", // Trophy
 			SpriteEntity[4, 3]: "body",
 			SpriteEntity[5, 2]: "body",
 			SpriteEntity[5, 3]: "body",
-			SpriteEntity[0, 12]: "purple gem", // Purple Circle
-			SpriteEntity[0, 13]: "body",
-			SpriteEntity[1, 12]: "body",
-			SpriteEntity[1, 13]: "body",
-			SpriteEntity[2, 12]: "red gem", // Red Gem
-			SpriteEntity[2, 13]: "body",
-			SpriteEntity[3, 12]: "body",
-			SpriteEntity[3, 13]: "body",
+			SpriteEntity[0, 10]: "purple gem", // Purple Circle
+			SpriteEntity[0, 11]: "body",
+			SpriteEntity[1, 10]: "body",
+			SpriteEntity[1, 11]: "body",
+			SpriteEntity[2, 10]: "red gem", // Red Gem
+			SpriteEntity[2, 11]: "body",
+			SpriteEntity[3, 10]: "body",
+			SpriteEntity[3, 11]: "body",
+			SpriteEntity[2, 10]: "crown gem", // Crown
+			SpriteEntity[2, 11]: "body",
+			SpriteEntity[3, 10]: "body",
+			SpriteEntity[3, 11]: "body",
+			SpriteEntity[12, 0]: "fire death", // Fire
+			SpriteEntity[13, 0]: "body",
+			SpriteEntity[12, 1]: "body",
+			SpriteEntity[13, 1]: "body",
+			SpriteEntity[2, 2]: "tentacle death", // Purple tentacles?
+			SpriteEntity[2, 3]: "body",
+			SpriteEntity[3, 2]: "body",
+			SpriteEntity[3, 3]: "body",
 			SpriteEntity[4, 0]: "door", // Door
 			SpriteEntity[5, 0]: "body",
 			SpriteEntity[4, 1]: "body",
-			SpriteEntity[5, 1]: "body"
+			SpriteEntity[5, 1]: "body",
+			SpriteEntity[0,12]: "logo", // Logo
+			SpriteEntity[0,13]: "body",
+			SpriteEntity[1,12]: "body",
+			SpriteEntity[1,13]: "body"
 		}
 
 		for (x in 0...mapWidth) {
@@ -65,10 +84,14 @@ class Level is MapEntity {
 				if (tile) {
 					if (tile.endsWith("gem")) {
 						entity = Gem.new(currentTile, manager, tile)
+					} else if (tile.endsWith("death")) {
+						entity = Death.new(currentTile, manager, tile)
 					} else if (tile == "door") {
 						entity = Door.new(currentTile, manager)
 					} else if (tile == "player") {
 						entity = Player.new(currentTile, this)
+					} else if (tile == "logo") {
+						entity = Logo.new(manager)
 					} else if (tile.contains("body")) {
 						this[x,y] = 0
 					}

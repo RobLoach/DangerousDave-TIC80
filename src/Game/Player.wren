@@ -52,7 +52,7 @@ class Player is AnimationEntity {
 
 		// Jump
 		if (_onground) {
-			if (TIC.btn(0)) {
+			if (TIC.btn(0) || TIC.btn(4)) {
 				_onground = false
 				frames = _jumping
 				velocity.y = -0.9

@@ -34,8 +34,7 @@ class Gem is AnimationEntity {
 		}
 		if (!_player) {
 			_player = _level["player"]
-		}
-		if (collisionRect(_player)) {
+		} else if (collisionRect(_player)) {
 			_active = false
 		}
 
