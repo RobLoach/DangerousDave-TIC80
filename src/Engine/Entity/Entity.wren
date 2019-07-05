@@ -5,6 +5,7 @@ class Entity is Rectangle {
 	construct new() {
 		super()
 		_velocity = Vector.new(0, 0)
+		_acceleration = Vector.new(0, 0)
 		_name = "Entity"
 		_tags = []
 	}
@@ -26,6 +27,8 @@ class Entity is Rectangle {
 	velocity=(v){_velocity=v}
 	tags{_tags}
 	tags=(v){_tags=v}
+	acceleration{_acceleration}
+	acceleration=(v){_acceleration=v}
 
 	draw() {
 		draw(Vector.new())
@@ -36,6 +39,8 @@ class Entity is Rectangle {
 	}
 
 	update() {
+		_velocity.x = _velocity.x + _acceleration.x
+		_velocity.y = _velocity.y + _acceleration.y
 		x = x + _velocity.x
 		y = y + _velocity.y
 	}

@@ -37,9 +37,28 @@ class Player is AnimationEntity {
 		_state = "standing"
 		currentFrame=frames[0]
 		_onground = true
+		_automated = false
+	}
+
+	automated{_automated}
+	automated=(v){
+		_automated=v
+		if (v) {
+			frames = _walking
+			velocity.x = 1
+		}
 	}
 
 	update() {
+		if (_automated) {
+			if (right >= 240) {
+				parent["level"].complete = true
+			}
+			super()
+			return
+		}
+
+		// Player movement
 		var oldPosition = position
 
 		// Move vertically.
@@ -52,7 +71,7 @@ class Player is AnimationEntity {
 
 		// Jump
 		if (_onground) {
-			if (TIC.btn(0) || TIC.btn(4)) {
+			if (TIC.btnp(0) || TIC.btnp(4)) {
 				_onground = false
 				frames = _jumping
 				velocity.y = -0.9
@@ -130,5 +149,9 @@ class Player is AnimationEntity {
 				}
 			}
 		}
+	}
+
+	reset() {
+		position = _level.start
 	}
 }

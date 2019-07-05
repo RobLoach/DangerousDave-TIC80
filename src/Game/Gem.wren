@@ -8,6 +8,7 @@ class Gem is AnimationEntity {
 		_active = true
 		_player = null
 		_level = level
+		_sound = 0
 
 		name = gemName
 
@@ -21,6 +22,19 @@ class Gem is AnimationEntity {
 			]
 			animationSpeed = 5
 		}
+
+		_pointAmount = {
+			"purple gem": 50,
+			"blue gem": 100,
+			"red gem": 150,
+			"ring gem": 200,
+			"crown gem": 300,
+			"scepter gem": 500,
+			"trophy gem": 1000
+		}
+
+		_points = _pointAmount.containsKey(name) ? _pointAmount[name] : 0
+
 		tileWidth = 2
 		tileHeight = 2
 	}
@@ -36,6 +50,7 @@ class Gem is AnimationEntity {
 			_player = _level["player"]
 		} else if (collisionRect(_player)) {
 			_active = false
+			TIC.sfx(_sound)
 		}
 
 		super()

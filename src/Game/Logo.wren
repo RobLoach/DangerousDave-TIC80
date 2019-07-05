@@ -6,21 +6,21 @@ class Logo is SpriteEntity {
 		name = "logo"
 		_manager = manager
 		_t = 0
-		_done = false
 	}
 
-	done{_done}
-
 	update() {
+		// Move up and down on the screen.
 		_t = _t + 0.07
+		y = _t.sin * 3 - 8
 		if (_t > 10000) {
 			_t = 0
 		}
-		y = _t.sin * 3 - 8
 
-		if (TIC.btn(4) || TIC.btn(5)) {
-			_done = true
+		// Move on when the player hits a button.
+		if (TIC.btnp(4) || TIC.btnp(5)) {
+			parent["level"].complete = true
 		}
+
 		super()
 	}
 }

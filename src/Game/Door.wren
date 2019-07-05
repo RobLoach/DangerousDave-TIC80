@@ -17,8 +17,7 @@ class Door is SpriteEntity {
 			_trophy = _manager["trophy gem"]
 		} else if (_player) {
 			if (!_trophy.active && collisionRect(_player)) {
-				// TODO: Win state
-				TIC.reset()
+				parent["level"].complete = true
 			}
 		}
 	}

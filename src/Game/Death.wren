@@ -26,7 +26,20 @@ class Death is AnimationEntity {
 				SpriteEntity[1, 11, 2],
 				SpriteEntity[2, 11, 2]
 			]
+			animationSpeed = 7
 		}
+
+		if (name == "water death") {
+			frames = [
+				tile,
+				SpriteEntity[5, 3, 2],
+				SpriteEntity[6, 3, 2],
+				SpriteEntity[7, 3, 2],
+				SpriteEntity[0, 4, 2]
+			]
+			animationSpeed = 6
+		}
+
 		tileWidth = 2
 		tileHeight = 2
 	}
@@ -35,8 +48,8 @@ class Death is AnimationEntity {
 		if (!_player) {
 			_player = _level["player"]
 		} else if (collisionRect(_player)) {
-			// TODO: Kill the player.
-			TIC.reset()
+			// TODO: Animated death of the player.
+			_player.reset()
 		}
 
 		super()
