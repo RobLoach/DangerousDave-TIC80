@@ -17,7 +17,7 @@ class Logo is SpriteEntity {
 		}
 
 		// Move on when the player hits a button.
-		if (TIC.btnp(4) || TIC.btnp(5)) {
+		if (TIC.btnp(4) || TIC.btnp(5) || TIC.btnp(6) || TIC.btnp(7)) {
 			parent["level"].complete = true
 		}
 

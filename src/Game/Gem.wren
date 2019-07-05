@@ -51,6 +51,13 @@ class Gem is AnimationEntity {
 		} else if (collisionRect(_player)) {
 			_active = false
 			TIC.sfx(_sound)
+
+			if (name == "gun gem") {
+				_player.ammo = 10
+			}
+			if (name == "jetpack") {
+				_player.jetpack = 10
+			}
 		}
 
 		super()

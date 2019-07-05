@@ -2,10 +2,8 @@ import "../Engine/Entity/SpriteEntity"
 import "../Engine/Entity/AnimationEntity"
 
 class Death is AnimationEntity {
-	construct new(tile, level, deathName) {
+	construct new(tile, deathName) {
 		super([tile])
-		_player = null
-		_level = level
 
 		name = deathName
 
@@ -46,8 +44,8 @@ class Death is AnimationEntity {
 
 	update() {
 		if (!_player) {
-			_player = _level["player"]
-		} else if (collisionRect(_player)) {
+			_player = parent["player"]
+		} else if (collisionRect(_player.boundingBox())) {
 			// TODO: Animated death of the player.
 			_player.reset()
 		}

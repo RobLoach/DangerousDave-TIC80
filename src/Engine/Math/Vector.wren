@@ -40,6 +40,15 @@ class Vector {
 		return ((xdiff * xdiff) + (ydiff * ydiff)).sqrt
 	}
 
+	length {
+		return (x*x + y*y).sqrt
+	}
+	length=(v) {
+		var len = length
+		x = (x / len) * v
+		y = (y / len) * v
+	}
+
 	toList { [x, y] }
 	toString {
 		var coords = x.toString + ", " + y.toString

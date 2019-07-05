@@ -7,6 +7,7 @@ import "Player"
 import "Door"
 import "Logo"
 import "Death"
+import "Enemy"
 
 class Level is MapEntity {
 
@@ -57,7 +58,7 @@ class Level is MapEntity {
 			SpriteEntity[6, 3]: "wall",
 			SpriteEntity[7, 2]: "wall",
 			SpriteEntity[7, 3]: "wall",
-			SpriteEntity[8, 2]: "gun", // Gun
+			SpriteEntity[8, 2]: "gun gem", // Gun
 			SpriteEntity[8, 3]: "body",
 			SpriteEntity[9, 2]: "body",
 			SpriteEntity[9, 3]: "body",
@@ -113,7 +114,7 @@ class Level is MapEntity {
 			SpriteEntity[7, 0]: "wall",
 			SpriteEntity[6, 1]: "wall",
 			SpriteEntity[7, 1]: "wall",
-			SpriteEntity[8, 0]: "jetpack", // Jetpack
+			SpriteEntity[8, 0]: "jetpack gem", // Jetpack
 			SpriteEntity[9, 0]: "body",
 			SpriteEntity[8, 1]: "body",
 			SpriteEntity[9, 1]: "body",
@@ -129,6 +130,7 @@ class Level is MapEntity {
 			SpriteEntity[0,13]: "body",
 			SpriteEntity[1,12]: "body",
 			SpriteEntity[1,13]: "body",
+			SpriteEntity[2,12]: "spider enemy", // Spider
 			SpriteEntity[12, 4]: "ring gem", // Ring
 			SpriteEntity[13, 4]: "body",
 			SpriteEntity[12, 5]: "body",
@@ -148,7 +150,9 @@ class Level is MapEntity {
 					if (tile.endsWith("gem")) {
 						entity = Gem.new(currentTile, manager, tile)
 					} else if (tile.endsWith("death")) {
-						entity = Death.new(currentTile, manager, tile)
+						entity = Death.new(currentTile, tile)
+					} else if (tile.endsWith("enemy")) {
+						entity = Enemy.new(currentTile, tile)
 					} else if (tile == "door") {
 						entity = Door.new(currentTile, manager)
 					} else if (tile == "player") {

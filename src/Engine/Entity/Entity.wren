@@ -30,6 +30,18 @@ class Entity is Rectangle {
 	acceleration{_acceleration}
 	acceleration=(v){_acceleration=v}
 
+	delete() {
+		var oldName = _name
+		_name = "!DELETE!"
+		for (i in 0...parent.entities.count) {
+			if (parent[i].name == name) {
+				parent.removeAt(i)
+				_name = oldName
+				return
+			}
+		}
+	}
+
 	draw() {
 		draw(Vector.new())
 	}

@@ -36,6 +36,9 @@ class EntityManager is Entity {
 			}
 		}
 	}
+	removeAt(v) {
+		_entities.removeAt(v)
+	}
 	add(v) {
 		v.parent = this
 		_entities.add(v)

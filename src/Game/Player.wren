@@ -2,6 +2,7 @@ import "../Engine/Entity/AnimationEntity"
 import "../Engine/Entity/SpriteEntity"
 import "../Engine/Math/Vector"
 import "../Engine/Math/Rectangle"
+import "Bullet"
 
 class Player is AnimationEntity {
 	construct new(tile, level) {
@@ -38,7 +39,19 @@ class Player is AnimationEntity {
 		currentFrame=frames[0]
 		_onground = true
 		_automated = false
+
+		_jetpack = 0
+		_ammo = 0
+		_reloadTimer = 0
+		_reloadTimerStart = 60 * 1
 	}
+
+	level{_level}
+
+	ammo{_ammo}
+	ammo=(v){_ammo=v}
+	jetpack{_jetpack}
+	jetpack=(v){_jetpack=v}
 
 	automated{_automated}
 	automated=(v){
@@ -71,7 +84,7 @@ class Player is AnimationEntity {
 
 		// Jump
 		if (_onground) {
-			if (TIC.btnp(0) || TIC.btnp(4)) {
+			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
 				_onground = false
 				frames = _jumping
 				velocity.y = -0.9
@@ -82,7 +95,8 @@ class Player is AnimationEntity {
 		y = y + velocity.y
 
 		// Test allowing the vertical move.
-		var collide = Rectangle.new(x, y, width,height)
+		var xPadding = 4
+		var collide = boundingBox()
 		var collisionRect = tilemap_collision(collide)
 		if(collisionRect) {
 			y = oldPosition.y
@@ -123,19 +137,41 @@ class Player is AnimationEntity {
 		}
 
 		// Test to make sure it's possible.
-		collide = Rectangle.new(x, y, width,height)
+		collide = boundingBox()
 		collisionRect = tilemap_collision(collide)
 		if(collisionRect) {
 			x = oldPosition.x
 
 			if (x < collisionRect.x) {
-				right = collisionRect.left
+				right = collisionRect.left + xPadding
 			} else {
-				left = collisionRect.right
+				left = collisionRect.right - xPadding
 			}
 		}
 
+		// Shoot
+		if (_reloadTimer > 0) {
+			_reloadTimer = _reloadTimer - 1
+		}
+		if (TIC.btnp(4) || TIC.btnp(7)) {
+			shoot()
+		}
+
 		super()
+	}
+
+	boundingBox() {
+		var xPadding = 4
+		return Rectangle.new(x + xPadding, y, width - xPadding * 2,height)
+	}
+
+	shoot() {
+		if (_reloadTimer <= 0 && _ammo > 0) {
+			_ammo = _ammo - 1
+			var bullet = Bullet.new(this, "player")
+			parent.add(bullet)
+			_reloadTimer = _reloadTimerStart
+		}
 	}
 
 	tilemap_collision(rect) {

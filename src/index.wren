@@ -10,12 +10,17 @@ class Game is TIC {
 
 	construct new(){
 		_currentLevel = 0
+
+		var testroom = ["test", 0, 26, 26, 8]
 		var transition = ["transition", 0, 20, 30, 6]
 		_levels = [
-			["MainMenu", 0, 34, 30, 17], // Main Menu
-			["Level1", 0, 0, 38, 20], // Level 1
+			//testroom,
+			["MainMenu", 0, 34, 30, 17],
+			["Level1", 0, 0, 38, 20],
 			transition,
-			["Level2", 0, 51, 101, 19] // Level 2
+			["Level2", 0, 51, 101, 19],
+			transition,
+			["Level3", 0, 70, 156, 19]
 		]
 		loadLevel()
 	}
@@ -41,7 +46,7 @@ class Game is TIC {
 			// Transition Screen
 			if (level.hasTag("transition")) {
 				_game.center = level.center
-				var levelsLeft = _levels.count - _currentLevel - 1
+				var levelsLeft = _levels.count - _currentLevel - 2
 				var text = "GOOD WORK! ONLY %(levelsLeft) TO GO!"
 				var width = TIC.print(text, -100, -100, 15)
 				TIC.print(text, 240 / 2 - width / 2, -_game.top - 10, 15)
@@ -91,8 +96,7 @@ class Game is TIC {
 		// Center the camera.
 		var player = _game["player"]
 		if (player) {
-			_game.centerX = player.centerX
-			_game.centerY = player.centerY
+			_game.center = player.center
 		}
 	}
 }
