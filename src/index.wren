@@ -20,7 +20,7 @@ class Game is TIC {
 			transition,
 			["Level2", 0, 51, 101, 19],
 			transition,
-			["Level3", 0, 70, 156, 19]
+			["Level3", 0, 70, 197, 19]
 		]
 		loadLevel()
 	}

@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "wrenpack build src/index.wren --output=node_modules/cart.wren --minify --prefix=\"// title: Dangerous Dave\n// author: RobLoach\n// desc: Remake of the 1988 PC classic, Dangerous Dave\n// input: gamepad\n// script: wren\"",
-    "posttest": "tic80 cart.tic -code node_modules/cart.wren -sprites src/Resources/sprites.gif"
+    "posttest": "~/Documents/TIC-80/bin/tic80 cart.tic -code node_modules/cart.wren -sprites src/Resources/sprites.gif"
   },
   "author": "Rob Loach",
   "license": "GPL-3.0",

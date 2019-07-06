@@ -9,6 +9,13 @@ class MapEntity is SpriteEntity {
 		_worldMapCellHeight = worldMapCellHeight
 
 		tags.add("MapEntity")
+
+		_tilemapOriginal = []
+		for (y in 0..._worldMapCellHeight) {
+			for (x in 0..._worldMapCellWidth) {
+				_tilemapOriginal.add(TIC.mget(_worldMapCellX + x, _worldMapCellY + y))
+			}
+		}
 	}
 
 	width{_worldMapCellWidth * 8 * scale}
@@ -17,8 +24,17 @@ class MapEntity is SpriteEntity {
 	mapWidth{_worldMapCellWidth}
 	mapHeight{_worldMapCellHeight}
 
+	reset() {
+		for (y in 0..._worldMapCellHeight) {
+			for (x in 0..._worldMapCellWidth) {
+				this[x,y] = _tilemapOriginal[x + _worldMapCellWidth * y]
+			}
+		}
+	}
+
 	[x, y] {
 		return TIC.mget(_worldMapCellX + x, _worldMapCellY + y)
+		//return _tilmapOriginal[x + _worldMapCellWidth * y]
 	}
 
 	[x, y]=(v) {

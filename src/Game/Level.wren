@@ -183,7 +183,12 @@ class Level is MapEntity {
 	start=(v){_start=v}
 
 	complete{_complete}
-	complete=(v){_complete = v}
+	complete=(v){
+		_complete = v
+		if (v) {
+			reset()
+		}
+	}
 
 	tileTypes{_tileTypes}
 }
