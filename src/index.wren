@@ -14,7 +14,7 @@ class Game is TIC {
 		var testroom = ["test", 0, 26, 26, 8]
 		var transition = ["transition", 0, 20, 30, 6]
 		_levels = [
-			//testroom,
+			testroom,
 			["MainMenu", 0, 34, 30, 17],
 			["Level1", 0, 0, 38, 20],
 			transition,

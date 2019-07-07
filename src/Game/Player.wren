@@ -9,33 +9,38 @@ class Player is AnimationEntity {
 		_level = level
 
 		super()
-		_idle = [
-			SpriteEntity[1, 8, 2],
-			SpriteEntity[1, 8, 2],
-			SpriteEntity[1, 8, 2]
-		]
 
-		_walking = [
-			SpriteEntity[0, 8, 2],
-			SpriteEntity[1, 8, 2],
-			SpriteEntity[2, 8, 2],
-			SpriteEntity[1, 8, 2]
-		]
-
-		_jumping = [
-			SpriteEntity[3, 9, 2]
-		]
-
-		_falling = [
-			SpriteEntity[0, 8, 2]
-		]
+		_animations = {
+			"idle": [
+				SpriteEntity[1, 8, 2],
+				SpriteEntity[1, 8, 2],
+				SpriteEntity[1, 8, 2]
+			],
+			"walking":[
+				SpriteEntity[0, 8, 2],
+				SpriteEntity[1, 8, 2],
+				SpriteEntity[2, 8, 2],
+				SpriteEntity[1, 8, 2]
+			],
+			"jumping":[
+				SpriteEntity[3, 9, 2]
+			],
+			"jetpack": [
+				SpriteEntity[0, 9, 2],
+				SpriteEntity[1, 9, 2],
+				SpriteEntity[2, 9, 2]
+			],
+			"falling": [
+				SpriteEntity[0, 8, 2]
+			]
+		}
 
 		animationSpeed = 5
-		frames = _idle
+		frames = _animations["idle"]
 		tileWidth = 2
 		tileHeight = 2
 		name = "player"
-		_state = "standing"
+		_state = "idle"
 		currentFrame=frames[0]
 		_onground = true
 		_automated = false
@@ -86,7 +91,7 @@ class Player is AnimationEntity {
 		if (_onground) {
 			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
 				_onground = false
-				frames = _jumping
+				frames = _animations["jumping"]
 				velocity.y = -0.9
 			}
 		}
@@ -104,7 +109,7 @@ class Player is AnimationEntity {
 				bottom = collisionRect.top
 				_onground = true
 				velocity.y = 0
-				frames = _idle
+				frames = _animations["idle"]
 			} else {
 				top = collisionRect.bottom
 				velocity.y = 0
@@ -115,7 +120,7 @@ class Player is AnimationEntity {
 			if (_onground) {
 				velocity.y = gravity * 15
 			}
-			frames = _falling
+			frames = _animations["falling"]
 			_onground = false
 		}
 
@@ -125,14 +130,14 @@ class Player is AnimationEntity {
 			x = x - horizontalSpeed
 			flip = 1
 			if (_onground) {
-				frames = _walking
+				frames = _animations["walking"]
 			}
 		}
 		if (TIC.btn(3)) {
 			x = x + horizontalSpeed
 			flip = 0
 			if (_onground) {
-				frames = _walking
+				frames = _animations["walking"]
 			}
 		}
 
