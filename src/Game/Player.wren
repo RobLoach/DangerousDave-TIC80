@@ -42,7 +42,6 @@ class Player is AnimationEntity {
 		name = "player"
 		_state = "idle"
 		currentFrame=frames[0]
-		_onground = true
 		_automated = false
 
 		_jetpack = 0
@@ -62,7 +61,8 @@ class Player is AnimationEntity {
 	automated=(v){
 		_automated=v
 		if (v) {
-			frames = _walking
+			frames = _animations["walking"]
+			_state = "walking"
 			velocity.x = 1
 		}
 	}
@@ -81,20 +81,62 @@ class Player is AnimationEntity {
 
 		// Move vertically.
 		var gravity = 0.025
+		if (_state == "jetpack") {
+			gravity = 0
+		}
 
 		velocity.y = velocity.y + gravity
 		if (velocity.y > 2) {
 			velocity.y = 2
 		}
 
-		// Jump
-		if (_onground) {
+		// Jetpack
+		if (_state == "jetpack") {
+			// Move vertically
+			if (TIC.btn(0)) {
+				y = y - 1
+			}
+			if (TIC.btn(1)) {
+				y = y + 1
+			}
+		}
+
+		// Jumping or Falling
+		if (_state == "jumping" || _state == "falling") {
 			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
-				_onground = false
+				// Can we engage the jetpack?
+				if (_jetpack > 0) {
+					_state = "jetpack"
+					frames = _animations["jetpack"]
+					velocity.y = 0
+				}
+			}
+		// Idle or Walking
+		} else if (_state == "idle" || _state == "walking") {
+			// Allow Jumping
+			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
+				_state = "jumping"
 				frames = _animations["jumping"]
 				velocity.y = -0.9
 			}
+		// Jetpack
+		} else if (_state == "jetpack") {
+			// Disengage the jetpack.
+			if (TIC.btnp(5) || TIC.btnp(6)) {
+				_state = "falling"
+				frames = _animations["falling"]
+			} else {
+				// Use up some Jetpack fuel.
+				_jetpack = _jetpack - 1
+				if (_jetpack <= 0) {
+					_state = "falling"
+					frames = _animations["falling"]
+					velocity.y = 0.375 // Gravity * 15
+				}
+			}
 		}
+
+		TIC.print(_jetpack.toString)
 
 		// Apply the desired y change.
 		y = y + velocity.y
@@ -107,21 +149,21 @@ class Player is AnimationEntity {
 			y = oldPosition.y
 			if (y < collisionRect.y) {
 				bottom = collisionRect.top
-				_onground = true
+				_state = "idle"
 				velocity.y = 0
 				frames = _animations["idle"]
 			} else {
-				top = collisionRect.bottom
+				top = collisionRect.bottom - 1
 				velocity.y = 0
 			}
 		}
 		if (velocity.y > 0) {
 			// If the player was on the ground, and fell off a ledge.
-			if (_onground) {
+			if (_state == "idle" || _state == "walking") {
 				velocity.y = gravity * 15
 			}
 			frames = _animations["falling"]
-			_onground = false
+			_state = "falling"
 		}
 
 		// Move horizontally.
@@ -129,14 +171,16 @@ class Player is AnimationEntity {
 		if (TIC.btn(2)) {
 			x = x - horizontalSpeed
 			flip = 1
-			if (_onground) {
+			if (_state == "idle" || _state == "walking") {
 				frames = _animations["walking"]
+				_state = "walking"
 			}
 		}
 		if (TIC.btn(3)) {
 			x = x + horizontalSpeed
 			flip = 0
-			if (_onground) {
+			if (_state == "idle" || _state == "walking") {
+				_state = "walking"
 				frames = _animations["walking"]
 			}
 		}
@@ -167,7 +211,8 @@ class Player is AnimationEntity {
 
 	boundingBox() {
 		var xPadding = 4
-		return Rectangle.new(x + xPadding, y, width - xPadding * 2,height)
+		var yTopPadding = 1
+		return Rectangle.new(x + xPadding, y + yTopPadding, width - xPadding * 2, height - yTopPadding)
 	}
 
 	shoot() {

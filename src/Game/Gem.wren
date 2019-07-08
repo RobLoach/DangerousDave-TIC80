@@ -55,8 +55,8 @@ class Gem is AnimationEntity {
 			if (name == "gun gem") {
 				_player.ammo = 10
 			}
-			if (name == "jetpack") {
-				_player.jetpack = 10
+			if (name == "jetpack gem") {
+				_player.jetpack = 300
 			}
 		}
 

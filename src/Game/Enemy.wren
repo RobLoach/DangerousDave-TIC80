@@ -16,6 +16,14 @@ class Enemy is Death {
 			tileWidth = 4
 			tileHeight = 2
 		}
+		if (name == "slicer enemy") {
+			frames = [
+				SpriteEntity[2, 12, 2]
+			]
+
+			tileWidth = 4
+			tileHeight = 2
+		}
 		_t = 0
 		_shootTimerStart = 150
 		_shootTimer = _shootTimerStart
@@ -25,9 +33,18 @@ class Enemy is Death {
 
 		// Move up and down on the screen.
 		// TODO: Figure out the correct pattern.
-		_t = _t + 0.06
-		velocity.y = _t.sin * 1
-		velocity.x = _t.cos * 1.8
+		if (name == "spider enemy") {
+			_t = _t + 0.06
+			velocity.y = _t.sin * 1
+			velocity.x = _t.cos * 1.8
+		}
+
+		if (name == "slicer enemy") {
+			_t = _t + 0.02
+			velocity.y = _t.sin * 1
+			velocity.x = _t.cos * 1.6
+		}
+
 		if (_t > 10000) {
 			_t = 0
 		}

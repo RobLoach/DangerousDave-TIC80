@@ -126,11 +126,12 @@ class Level is MapEntity {
 			SpriteEntity[15, 0]: "wall",
 			//SpriteEntity[14, 1]: "wall",
 			SpriteEntity[15, 1]: "wall",
-			SpriteEntity[0,12]: "logo", // Logo
-			SpriteEntity[0,13]: "body",
-			SpriteEntity[1,12]: "body",
-			SpriteEntity[1,13]: "body",
-			SpriteEntity[2,12]: "spider enemy", // Spider
+			SpriteEntity[0, 12]: "logo", // Logo
+			SpriteEntity[0, 13]: "body",
+			SpriteEntity[1, 12]: "body",
+			SpriteEntity[1, 13]: "body",
+			SpriteEntity[2, 12]: "spider enemy", // Spider
+			SpriteEntity[2, 13]: "slicer enemy", // Slicer
 			SpriteEntity[12, 4]: "ring gem", // Ring
 			SpriteEntity[13, 4]: "body",
 			SpriteEntity[12, 5]: "body",

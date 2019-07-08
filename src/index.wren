@@ -14,15 +14,42 @@ class Game is TIC {
 		var testroom = ["test", 0, 26, 26, 8]
 		var transition = ["transition", 0, 20, 30, 6]
 		_levels = [
-			testroom,
+			//testroom,
 			["MainMenu", 0, 34, 30, 17],
 			["Level1", 0, 0, 38, 20],
 			transition,
 			["Level2", 0, 51, 101, 19],
 			transition,
-			["Level3", 0, 70, 197, 19]
+			["Level3", 0, 70, 197, 19],
+			transition,
+			["Level4", 0, 89, 197, 19],
+			transition
 		]
 		loadLevel()
+	}
+
+	/**
+	 * Get the text for the transition screens.
+	 */
+	levelsLeftText() {
+		var numTransitions = 4
+		var menuCount = 1
+		var levelsLeft = 0
+
+		// Count how many levels are left.
+		for (i in _currentLevel..._levels.count) {
+			if (_levels[i][0].startsWith("Level")) {
+				levelsLeft = levelsLeft + 1
+			}
+		}
+
+		if (levelsLeft == 1) {
+			return "THIS IS THE LAST LEVEL!!!"
+		}
+		if (levelsLeft == 0) {
+			return "YES! YOU FINISHED THE GAME!"
+		}
+		return "GOOD WORK! ONLY %(levelsLeft) TO GO!"
 	}
 
 	TIC(){
@@ -46,10 +73,9 @@ class Game is TIC {
 			// Transition Screen
 			if (level.hasTag("transition")) {
 				_game.center = level.center
-				var levelsLeft = _levels.count - _currentLevel - 2
-				var text = "GOOD WORK! ONLY %(levelsLeft) TO GO!"
-				var width = TIC.print(text, -100, -100, 15)
-				TIC.print(text, 240 / 2 - width / 2, -_game.top - 10, 15)
+				var text = levelsLeftText()
+				var textWidth = TIC.print(text, -100, -100, 15)
+				TIC.print(text, 240 / 2 - textWidth / 2, -_game.top - 10, 15)
 			} else if (player) {
 				_game.center = player.center
 				if (_game.top < 0) {
