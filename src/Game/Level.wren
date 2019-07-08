@@ -14,7 +14,7 @@ class Level is MapEntity {
 	construct new (manager, mapX, mapY, mapWidth, mapHeight) {
 		super(mapX, mapY, mapWidth, mapHeight)
 		name = "level"
-		_complete = false
+		_status = ""
 		_died = false
 
 		_tileTypes = {
@@ -183,9 +183,9 @@ class Level is MapEntity {
 	start{_start}
 	start=(v){_start=v}
 
-	complete{_complete}
-	complete=(v){
-		_complete = v
+	status{_status}
+	status=(v){
+		_status = v
 		if (v) {
 			reset()
 		}

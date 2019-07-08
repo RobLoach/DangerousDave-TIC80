@@ -1,6 +1,7 @@
 // title: Dangerous Dave
 // author: RobLoach
 // desc: Remake of the 1988 PC classic, Dangerous Dave
+// saveid: dangerousdave
 // script: wren
 
 import "Engine/Entity/EntityManager" for EntityManager
@@ -10,7 +11,6 @@ class Game is TIC {
 
 	construct new(){
 		_currentLevel = 0
-
 		var testroom = ["test", 0, 26, 26, 8]
 		var transition = ["transition", 0, 20, 30, 6]
 		_levels = [
@@ -57,8 +57,12 @@ class Game is TIC {
 		TIC.cls(0)
 
 		// Check if the level has been completed.
-		if (_game["level"].complete) {
+		var status = _game["level"].status
+		if (status == "complete") {
 			_currentLevel = _currentLevel + 1
+			loadLevel()
+		} else if (status == "load") {
+			_currentLevel = TIC.pmem(0)
 			loadLevel()
 		}
 
@@ -123,6 +127,10 @@ class Game is TIC {
 		var player = _game["player"]
 		if (player) {
 			_game.center = player.center
+		}
+
+		if (_currentLevel > 0) {
+			TIC.pmem(0, _currentLevel)
 		}
 	}
 }

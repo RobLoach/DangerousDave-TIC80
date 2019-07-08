@@ -70,7 +70,7 @@ class Player is AnimationEntity {
 	update() {
 		if (_automated) {
 			if (right >= 240) {
-				parent["level"].complete = true
+				parent["level"].status = "complete"
 			}
 			super()
 			return
