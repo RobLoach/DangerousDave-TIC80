@@ -12,17 +12,21 @@ class Game is TIC {
 	construct new(){
 		_currentLevel = 0
 		var testroom = ["test", 0, 26, 26, 8]
-		var transition = ["transition", 0, 20, 30, 6]
+		var transition = ["transition", 0, 19, 30, 6]
 		_levels = [
 			//testroom,
 			["MainMenu", 0, 34, 30, 17],
-			["Level1", 0, 0, 38, 20],
+			["Level1", 0, 0, 38, 19],
 			transition,
 			["Level2", 0, 51, 101, 19],
 			transition,
 			["Level3", 0, 70, 197, 19],
 			transition,
 			["Level4", 0, 89, 197, 19],
+			transition,
+			["Level5", 0, 108, 197, 19],
+			transition,
+			["Level6", 38, 0, 127, 19],
 			transition
 		]
 		loadLevel()

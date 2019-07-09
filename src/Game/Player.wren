@@ -32,6 +32,14 @@ class Player is AnimationEntity {
 			],
 			"falling": [
 				SpriteEntity[0, 8, 2]
+			],
+			"climbing": [
+				SpriteEntity[3, 8, 2],
+				SpriteEntity[4, 8, 2],
+				SpriteEntity[5, 8, 2]
+			],
+			"climbing-still": [
+				SpriteEntity[3, 8, 2]
 			]
 		}
 
@@ -81,7 +89,7 @@ class Player is AnimationEntity {
 
 		// Move vertically.
 		var gravity = 0.025
-		if (_state == "jetpack") {
+		if (_state == "jetpack" || _state == "climbing") {
 			gravity = 0
 		}
 
@@ -101,8 +109,47 @@ class Player is AnimationEntity {
 			}
 		}
 
-		// Jumping or Falling
-		if (_state == "jumping" || _state == "falling") {
+		// See if we can enable Climbing.
+		if (_state == "jumping" || _state == "falling" || _state == "idle" || _state == "walking") {
+			if (TIC.btn(0)) {
+				if (tilemap_collision(this, "tree")) {
+					_state = "climbing"
+					frames=_animations["climbing"]
+				}
+			}
+		}
+
+		// Climbing Physics
+		if (_state == "climbing") {
+			frames = _animations["climbing"]
+			if (TIC.btn(0)) {
+				y = y - 1
+			} else if (TIC.btn(1)) {
+				y = y + 1
+			} else if (TIC.btn(2) || TIC.btn(3)) {
+				// Nothing
+			} else {
+				// Not moving, so climbing still
+				frames = _animations["climbing-still"]
+			}
+
+			// Climbing has no gravity.
+			velocity.y = 0
+
+			// Check if we are no longer on a tree.
+			if (!tilemap_collision(boundingBox(), "tree")) {
+				_state = "falling"
+				frames = _animations["falling"]
+				velocity.y = 0.375 // Gravity * 15
+			}
+
+			// Allow Jumping off
+			if (TIC.btnp(5) || TIC.btnp(6)) {
+				_state = "jumping"
+				frames = _animations["jumping"]
+				velocity.y = -0.45
+			}
+		} else if (_state == "jumping" || _state == "falling") {
 			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
 				// Can we engage the jetpack?
 				if (_jetpack > 0) {
@@ -136,15 +183,13 @@ class Player is AnimationEntity {
 			}
 		}
 
-		TIC.print(_jetpack.toString)
-
 		// Apply the desired y change.
 		y = y + velocity.y
 
 		// Test allowing the vertical move.
 		var xPadding = 4
 		var collide = boundingBox()
-		var collisionRect = tilemap_collision(collide)
+		var collisionRect = tilemap_collision(collide, "wall")
 		if(collisionRect) {
 			y = oldPosition.y
 			if (y < collisionRect.y) {
@@ -160,7 +205,7 @@ class Player is AnimationEntity {
 		if (velocity.y > 0) {
 			// If the player was on the ground, and fell off a ledge.
 			if (_state == "idle" || _state == "walking") {
-				velocity.y = gravity * 15
+				velocity.y = gravity * 7
 			}
 			frames = _animations["falling"]
 			_state = "falling"
@@ -187,8 +232,8 @@ class Player is AnimationEntity {
 
 		// Test to make sure it's possible.
 		collide = boundingBox()
-		collisionRect = tilemap_collision(collide)
-		if(collisionRect) {
+		collisionRect = tilemap_collision(collide, "wall")
+		if (collisionRect) {
 			x = oldPosition.x
 
 			if (x < collisionRect.x) {
@@ -224,11 +269,11 @@ class Player is AnimationEntity {
 		}
 	}
 
-	tilemap_collision(rect) {
+	tilemap_collision(rect, type) {
 		for(i in 0..._level.mapWidth) {
 			for(j in 0..._level.mapHeight) {
 				var t = _level[i, j]
-				if(_level.tileTypes[t] == "wall") {
+				if(_level.tileTypes[t] == type) {
 					if (rect.collisionRect(i * 8, j * 8, 8, 8)) {
 						return Rectangle.new(i*8,j*8, 8, 8)
 					}

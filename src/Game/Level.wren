@@ -90,6 +90,10 @@ class Level is MapEntity {
 			SpriteEntity[6, 11]: "body",
 			SpriteEntity[7, 10]: "body",
 			SpriteEntity[7, 11]: "body",
+			SpriteEntity[8, 10]: "grey disk enemy", // Grey Disk Enemy
+			SpriteEntity[8, 11]: "body",
+			SpriteEntity[9, 10]: "body",
+			SpriteEntity[9, 11]: "body",
 			SpriteEntity[12, 0]: "fire death", // Fire
 			SpriteEntity[13, 0]: "body",
 			SpriteEntity[12, 1]: "body",
@@ -102,6 +106,27 @@ class Level is MapEntity {
 			SpriteEntity[2, 3]: "body",
 			SpriteEntity[3, 2]: "body",
 			SpriteEntity[3, 3]: "body",
+
+
+			SpriteEntity[2, 6]: "tree", // Wood Tree
+			SpriteEntity[2, 7]: "tree",
+			SpriteEntity[3, 6]: "tree",
+			SpriteEntity[3, 7]: "tree",
+			SpriteEntity[4, 6]: "tree", // Branch Tree
+			SpriteEntity[4, 7]: "tree",
+			SpriteEntity[5, 6]: "tree",
+			SpriteEntity[5, 7]: "tree",
+			SpriteEntity[6, 6]: "tree", // Branch Tree
+			SpriteEntity[6, 7]: "tree",
+			SpriteEntity[7, 6]: "tree",
+			SpriteEntity[7, 7]: "tree",
+
+			// Tree branches
+			SpriteEntity[7, 9]: "tree", // Tree branch bottom right
+			SpriteEntity[8, 9]: "tree", // tree branch bottom left
+			SpriteEntity[10, 8]: "tree", // Tree branch top left
+			SpriteEntity[11, 8]: "tree", // Tree branch top right
+
 			SpriteEntity[8, 6]: "water death", // Water
 			SpriteEntity[8, 7]: "body",
 			SpriteEntity[9, 6]: "body",
@@ -131,7 +156,17 @@ class Level is MapEntity {
 			SpriteEntity[1, 12]: "body",
 			SpriteEntity[1, 13]: "body",
 			SpriteEntity[2, 12]: "spider enemy", // Spider
+			SpriteEntity[3, 12]: "sun enemy", // Sun
+			SpriteEntity[4, 12]: "saucer enemy", // Saucer
+			SpriteEntity[5, 12]: "body",
+			SpriteEntity[6, 12]: "green enemy", // Saucer
+			SpriteEntity[7, 12]: "body",
+			SpriteEntity[6, 13]: "body",
+			SpriteEntity[7, 13]: "body",
+			SpriteEntity[4, 13]: "sandwich enemy", // Sandwich enemy
+			SpriteEntity[5, 13]: "body",
 			SpriteEntity[2, 13]: "slicer enemy", // Slicer
+			SpriteEntity[3, 13]: "baton enemy", // green baton
 			SpriteEntity[12, 4]: "ring gem", // Ring
 			SpriteEntity[13, 4]: "body",
 			SpriteEntity[12, 5]: "body",
