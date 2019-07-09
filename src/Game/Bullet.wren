@@ -62,7 +62,7 @@ class Bullet is AnimationEntity {
 		}
 
 		if (_bulletType == "player") {
-			var enemies = parent.getEntities("enemy")
+			var enemies = parent.getChildren("enemy")
 			for (enemy in enemies) {
 				if (enemy.collisionRect(collide)) {
 					// TODO: Death animation

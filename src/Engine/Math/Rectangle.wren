@@ -26,6 +26,12 @@ class Rectangle is Vector {
 		y = v.y
 		v
 	}
+	set(x,y,w,h) {
+		_x=x
+		_y=y
+		width=w
+		height=h
+	}
 
 	right{x+width}
 	right=(v){x=v-width}
@@ -67,6 +73,8 @@ class Rectangle is Vector {
 		return "Rectangle(" + coords + ")"
 	}
 
+	==(other) { (x == other.x) && (y == other.y) && (width == other.width) && (height == other.height) }
+	!=(other) { !(this == other) }
 
 	perimiter() {
 		2 * (x + y)
@@ -87,4 +95,5 @@ class Rectangle is Vector {
 
 		return Rectangle.new(base_x, base_y, max_x, max_y)
 	}
+	toList { [x, y, width, height] }
 }

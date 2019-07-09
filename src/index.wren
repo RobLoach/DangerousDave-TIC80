@@ -4,7 +4,6 @@
 // saveid: dangerousdave
 // script: wren
 
-import "Engine/Entity/EntityManager" for EntityManager
 import "Engine/Entity/SpriteEntity" for SpriteEntity
 import "Game/Level" for Level
 import "Game/Highscores" for Highscores
@@ -86,7 +85,7 @@ class Game is TIC {
 			var playa = _game["player"]
 
 			// TODO: Allow custom highscore names.
-			var highscores = Highscores.new(this)
+			var highscores = Highscores.new()
 			highscores.addHighscore({
 				"name": "DAV",
 				"score": playa.score,
@@ -157,7 +156,7 @@ class Game is TIC {
 
 		// Set up the correct game state.
 		var levelCoords = _levels[_currentLevel]
-		_game = EntityManager.new()
+		_game = Entity.new()
 		_game.name = "game"
 		var theLevel = Level.new(_game, levelCoords[1], levelCoords[2], levelCoords[3], levelCoords[4])
 		theLevel.tags.add(levelCoords[0])
@@ -171,7 +170,7 @@ class Game is TIC {
 		// Center the camera and save the data.
 		var newplayer = _game["player"]
 		if (newplayer) {
-			_game.center = newplayer.center
+			//_game.center = newplayer.center
 			newplayer.lives = lives
 			newplayer.score = score
 		}

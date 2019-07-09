@@ -15,6 +15,8 @@ class PixelEntity is Entity {
 	pixelEntityInit() {
 		tags.add("PixelEntity")
 		_color = 0
+		width = 1
+		height = 1
 	}
 
 	color{_color}

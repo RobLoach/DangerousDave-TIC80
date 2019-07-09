@@ -1,14 +1,13 @@
 import "../Engine/Entity/RectangleEntity" for RectangleEntity
 
 class Highscores is RectangleEntity {
-	construct new(manager) {
+	construct new() {
 		super(15, true)
 		width = 200
 		height = 100
 		x = 240 / 2 - width / 2
 		y = 136 / 2 - height / 2
 		name = "highscores"
-		_manager = manager
 		_highscoreSize = 5
 
 		_highscores = [
@@ -105,7 +104,7 @@ class Highscores is RectangleEntity {
 	}
 
 	draw(camera) {
-		super(camera)
+		super(Rectangle.new(0,0,240,136))
 
 		TIC.rectb(x, y, width, height, 0)
 

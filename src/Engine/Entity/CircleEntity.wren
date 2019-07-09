@@ -4,6 +4,8 @@ class CircleEntity is RectangleEntity {
 	construct new() {
 		super()
 		tags.add("CircleEntity")
+		width = 10
+		height = 10
 	}
 
 	draw(camera) {

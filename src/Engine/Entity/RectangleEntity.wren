@@ -22,6 +22,8 @@ class RectangleEntity is PixelEntity {
 	rectEntityInit() {
 		tags.add("RectangleEntity")
 		_fill = false
+		width = 1
+		height = 1
 	}
 
 	fill{_fill}
