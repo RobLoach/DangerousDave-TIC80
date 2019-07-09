@@ -1,4 +1,5 @@
 import "../Engine/Entity/SpriteEntity"
+import "Highscores"
 
 class Logo is SpriteEntity {
 	construct new(manager) {
@@ -9,10 +10,12 @@ class Logo is SpriteEntity {
 
 		_selection = 0
 		_menuShown = false
+		_highscores = null
 
 		_menuList = [
 			"Start Game",
 			"Continue",
+			"Highscores",
 			"Quit"
 		]
 	}
@@ -31,6 +34,14 @@ class Logo is SpriteEntity {
 				_menuShown = true
 			}
 			super()
+			return
+		}
+
+		if (_highscores) {
+			super()
+			if (_highscores.update()) {
+				_highscores = null
+			}
 			return
 		}
 
@@ -57,6 +68,8 @@ class Logo is SpriteEntity {
 				if (canLoad > 0) {
 					parent["level"].status = "load"
 				}
+			} else if (_menuList[_selection] == "Highscores") {
+				_highscores = Highscores.new(_manager)
 			} else if (_menuList[_selection] == "Quit") {
 				TIC.exit()
 				return
@@ -70,31 +83,38 @@ class Logo is SpriteEntity {
 		super(camera)
 
 		// Display the Menu.
-		if (_menuShown) {
-			var maxWidth = 240
-			var maxHeight = 136
-			var menuLocation = Rectangle.new(maxWidth / 4, maxHeight / 3, maxWidth / 2, _menuList.count * 10 + 15)
-			TIC.rect(menuLocation.x, menuLocation.y, menuLocation.width, menuLocation.height, 15)
-			TIC.rectb(menuLocation.x, menuLocation.y, menuLocation.width, menuLocation.height, 0)
+		if (!_menuShown) {
+			return
+		}
 
-			var index = 0
-			var levelToLoad = TIC.pmem(0)
-			for (item in _menuList) {
-				var color = 0
-				if (item == "Continue" && levelToLoad == 0) {
-					color = 3
-				}
+		if (_highscores) {
+			_highscores.draw()
+			return
+		}
 
-				var padding = 10
-				var menuItemText = ""
-				if (_selection == index) {
-					menuItemText = "> %(item)"
-				} else {
-					menuItemText = "  %(item)"
-				}
-				TIC.print(menuItemText, menuLocation.x+padding, menuLocation.y + padding + 10 * index, color)
-				index = index + 1
+		var maxWidth = 240
+		var maxHeight = 136
+		var menuLocation = Rectangle.new(maxWidth / 4, maxHeight / 3, maxWidth / 2, _menuList.count * 10 + 15)
+		TIC.rect(menuLocation.x, menuLocation.y, menuLocation.width, menuLocation.height, 15)
+		TIC.rectb(menuLocation.x, menuLocation.y, menuLocation.width, menuLocation.height, 0)
+
+		var index = 0
+		var levelToLoad = TIC.pmem(0)
+		for (item in _menuList) {
+			var color = 0
+			if (item == "Continue" && levelToLoad == 0) {
+				color = 3
 			}
+
+			var padding = 10
+			var menuItemText = ""
+			if (_selection == index) {
+				menuItemText = "> %(item)"
+			} else {
+				menuItemText = "  %(item)"
+			}
+			TIC.print(menuItemText, menuLocation.x+padding, menuLocation.y + padding + 10 * index, color)
+			index = index + 1
 		}
 	}
 }

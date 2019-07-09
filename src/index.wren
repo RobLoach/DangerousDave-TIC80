@@ -7,6 +7,7 @@
 import "Engine/Entity/EntityManager" for EntityManager
 import "Engine/Entity/SpriteEntity" for SpriteEntity
 import "Game/Level" for Level
+import "Game/Highscores" for Highscores
 
 class Game is TIC {
 
@@ -31,6 +32,12 @@ class Game is TIC {
 			transition
 		]
 		loadLevel()
+
+		_tester = true
+	}
+
+	currentLevelNumber() {
+		return levelsLeft() * -1 + 7
 	}
 
 	levelsLeft() {
@@ -74,9 +81,20 @@ class Game is TIC {
 			_currentLevel = TIC.pmem(0)
 			loadLevel()
 		} else if (status == "gameover") {
-			// Provide a game over screen?
-			// TODO: Add Highscores
-			TIC.reset()
+			// TODO: Provide a game over screen.
+
+			var playa = _game["player"]
+
+			// TODO: Allow custom highscore names.
+			var highscores = Highscores.new(this)
+			highscores.addHighscore({
+				"name": "DAV",
+				"score": playa.score,
+				"level": currentLevelNumber()
+			})
+
+			_currentLevel = 0
+			loadLevel()
 		}
 
 		// Update the game state.
@@ -179,7 +197,7 @@ class Game is TIC {
 		TIC.print("SCORE: %(player.score.toString)", xpadding, ypadding, 0)
 		TIC.print("SCORE: %(player.score.toString)", 0, 0, 11)
 
-		var level = levelsLeft() * -1 + 7
+		var level = currentLevelNumber()
 		var levelText = "LEVEL: %(level)"
 		var levelWidth = TIC.print(levelText, -999, -999)
 		TIC.print(levelText, 240 / 2 - levelWidth / 2 + xpadding, ypadding, 0)

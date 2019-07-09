@@ -29,9 +29,9 @@ class RectangleEntity is PixelEntity {
 
 	draw(camera) {
 		if (_fill) {
-			TIC.rect(x - camera.x, y - camera.y, color)
+			TIC.rect(x - camera.x, y - camera.y, width, height, color)
 		} else {
-			TIC.rectb(x - camera.x, y - camera.y, color)
+			TIC.rectb(x - camera.x, y - camera.y, width, height, color)
 		}
 	}
 }
