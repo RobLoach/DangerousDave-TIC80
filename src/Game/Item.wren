@@ -2,8 +2,8 @@ import "../Engine/Entity/SpriteEntity"
 import "../Engine/Entity/AnimationEntity"
 import "../Engine/Entity/TextEntity"
 
-class Gem is AnimationEntity {
-	construct new(tile, level, gemName) {
+class Item is AnimationEntity {
+	construct new(tile, level, itemName) {
 		super([tile])
 		_active = true
 		_player = null
@@ -11,9 +11,9 @@ class Gem is AnimationEntity {
 		_sound = 0
 		_channel = 3
 
-		name = gemName
+		name = itemName
 
-		if (name == "trophy gem") {
+		if (name == "TrophyItem") {
 			frames = [
 				tile,
 				SpriteEntity[3, 10, 2],
@@ -25,13 +25,13 @@ class Gem is AnimationEntity {
 		}
 
 		_pointAmount = {
-			"purple gem": 50,
-			"blue gem": 100,
-			"red gem": 150,
-			"ring gem": 200,
-			"crown gem": 300,
-			"scepter gem": 500,
-			"trophy gem": 1000
+			"PurpleGemItem": 50,
+			"BlueGemItem": 100,
+			"RedGemItem": 150,
+			"RingItem": 200,
+			"CrownItem": 300,
+			"ScepterItem": 500,
+			"TrophyItem": 1000
 		}
 
 		_points = _pointAmount.containsKey(name) ? _pointAmount[name] : 0
@@ -53,9 +53,9 @@ class Gem is AnimationEntity {
 			_active = false
 			TIC.sfx(_sound, 12 * 12, -1, _channel)
 
-			if (name == "gun gem") {
+			if (name == "GunItem") {
 				_player.ammo = 9999
-			} else if (name == "jetpack gem") {
+			} else if (name == "JetpackItem") {
 				_player.jetpack = 60*30
 			}
 
@@ -72,7 +72,7 @@ class Gem is AnimationEntity {
 		}
 
 		// If the Trophy was taken, display a message.
-		if (name == "trophy gem") {
+		if (name == "TrophyItem") {
  			var textWidth = TIC.print("GET TO THE DOOR!", -999, -999, 14)
  			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2 + 2, 136 - 10 + 1, 0)
  			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 - 10, 11)

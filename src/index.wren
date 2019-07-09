@@ -148,7 +148,7 @@ class Game is TIC {
 		// Fix the display order of the entities.
 		_game.prioritize("player")
 		_game.prioritize("logo")
-		_game.prioritize("trophy gem")
+		_game.prioritize("TrophyItem")
 
 		// Center the camera and save the data.
 		var newplayer = _game["player"]

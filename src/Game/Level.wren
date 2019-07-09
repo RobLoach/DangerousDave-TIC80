@@ -2,7 +2,7 @@ import "../Engine/Entity/MapEntity" for MapEntity
 import "../Engine/Entity/SpriteEntity" for SpriteEntity
 import "../Engine/Math/Vector" for Vector
 
-import "Gem"
+import "Item"
 import "Player"
 import "Door"
 import "Logo"
@@ -42,7 +42,7 @@ class Level is MapEntity {
 			SpriteEntity[9, 4]: "wall",
 			//SpriteEntity[6, 5]: "wall", // Purple Pipe Left/Right bottom
 			//SpriteEntity[7, 5]: "wall",
-			SpriteEntity[14, 8]: "blue gem", // Blue Gem
+			SpriteEntity[14, 8]: "BlueGemItem", // BlueGemItem
 			SpriteEntity[15, 8]: "body",
 			SpriteEntity[14, 9]: "body",
 			SpriteEntity[15, 9]: "body",
@@ -50,7 +50,7 @@ class Level is MapEntity {
 			SpriteEntity[11, 10]: "body",
 			SpriteEntity[10, 11]: "body",
 			SpriteEntity[11, 11]: "body",
-			SpriteEntity[4, 2]: "trophy gem", // Trophy
+			SpriteEntity[4, 2]: "TrophyItem", // Trophy
 			SpriteEntity[4, 3]: "body",
 			SpriteEntity[5, 2]: "body",
 			SpriteEntity[5, 3]: "body",
@@ -58,7 +58,7 @@ class Level is MapEntity {
 			SpriteEntity[6, 3]: "wall",
 			SpriteEntity[7, 2]: "wall",
 			SpriteEntity[7, 3]: "wall",
-			SpriteEntity[8, 2]: "gun gem", // Gun
+			SpriteEntity[8, 2]: "GunItem", // Gun
 			SpriteEntity[8, 3]: "body",
 			SpriteEntity[9, 2]: "body",
 			SpriteEntity[9, 3]: "body",
@@ -74,15 +74,15 @@ class Level is MapEntity {
 			SpriteEntity[14, 3]: "wall",
 			SpriteEntity[15, 2]: "wall",
 			SpriteEntity[15, 3]: "wall",
-			SpriteEntity[0, 10]: "purple gem", // Purple Circle
+			SpriteEntity[0, 10]: "PurpleGemItem", // Purple Circle
 			SpriteEntity[0, 11]: "body",
 			SpriteEntity[1, 10]: "body",
 			SpriteEntity[1, 11]: "body",
-			SpriteEntity[2, 10]: "red gem", // Red Gem
+			SpriteEntity[2, 10]: "RedGemItem", // RedGemItem
 			SpriteEntity[2, 11]: "body",
 			SpriteEntity[3, 10]: "body",
 			SpriteEntity[3, 11]: "body",
-			SpriteEntity[4, 10]: "crown gem", // Crown
+			SpriteEntity[4, 10]: "CrownItem", // Crown
 			SpriteEntity[4, 11]: "body",
 			SpriteEntity[5, 10]: "body",
 			SpriteEntity[5, 11]: "body",
@@ -137,7 +137,7 @@ class Level is MapEntity {
 			SpriteEntity[7, 0]: "wall",
 			SpriteEntity[6, 1]: "wall",
 			SpriteEntity[7, 1]: "wall",
-			SpriteEntity[8, 0]: "jetpack gem", // Jetpack
+			SpriteEntity[8, 0]: "JetpackItem", // Jetpack
 			SpriteEntity[9, 0]: "body",
 			SpriteEntity[8, 1]: "body",
 			SpriteEntity[9, 1]: "body",
@@ -165,11 +165,11 @@ class Level is MapEntity {
 			SpriteEntity[5, 13]: "body",
 			SpriteEntity[2, 13]: "slicer enemy", // Slicer
 			SpriteEntity[3, 13]: "baton enemy", // green baton
-			SpriteEntity[12, 4]: "ring gem", // Ring
+			SpriteEntity[12, 4]: "RingItem", // Ring
 			SpriteEntity[13, 4]: "body",
 			SpriteEntity[12, 5]: "body",
 			SpriteEntity[13, 5]: "body",
-			SpriteEntity[14, 4]: "scepter gem", // Scepter
+			SpriteEntity[14, 4]: "ScepterItem", // Scepter
 			SpriteEntity[15, 4]: "body",
 			SpriteEntity[14, 5]: "body",
 			SpriteEntity[15, 5]: "body"
@@ -181,8 +181,8 @@ class Level is MapEntity {
 				var tile = _tileTypes[currentTile]
 				var entity = null
 				if (tile) {
-					if (tile.endsWith("gem")) {
-						entity = Gem.new(currentTile, manager, tile)
+					if (tile.endsWith("Item")) {
+						entity = Item.new(currentTile, manager, tile)
 					} else if (tile.endsWith("death")) {
 						entity = Death.new(currentTile, tile)
 					} else if (tile.endsWith("enemy")) {
