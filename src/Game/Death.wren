@@ -47,7 +47,7 @@ class Death is AnimationEntity {
 			_player = parent["player"]
 		} else if (collisionRect(_player.boundingBox())) {
 			// TODO: Animated death of the player.
-			_player.reset()
+			_player.die()
 		}
 
 		super()

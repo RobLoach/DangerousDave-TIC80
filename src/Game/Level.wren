@@ -106,8 +106,6 @@ class Level is MapEntity {
 			SpriteEntity[2, 3]: "body",
 			SpriteEntity[3, 2]: "body",
 			SpriteEntity[3, 3]: "body",
-
-
 			SpriteEntity[2, 6]: "tree", // Wood Tree
 			SpriteEntity[2, 7]: "tree",
 			SpriteEntity[3, 6]: "tree",

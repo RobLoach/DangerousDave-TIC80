@@ -5,6 +5,7 @@
 // script: wren
 
 import "Engine/Entity/EntityManager" for EntityManager
+import "Engine/Entity/SpriteEntity" for SpriteEntity
 import "Game/Level" for Level
 
 class Game is TIC {
@@ -32,10 +33,7 @@ class Game is TIC {
 		loadLevel()
 	}
 
-	/**
-	 * Get the text for the transition screens.
-	 */
-	levelsLeftText() {
+	levelsLeft() {
 		var numTransitions = 4
 		var menuCount = 1
 		var levelsLeft = 0
@@ -46,14 +44,21 @@ class Game is TIC {
 				levelsLeft = levelsLeft + 1
 			}
 		}
+		return levelsLeft
+	}
 
-		if (levelsLeft == 1) {
+	/**
+	 * Get the text for the transition screens.
+	 */
+	levelsLeftText() {
+		var left = levelsLeft()
+		if (left == 1) {
 			return "THIS IS THE LAST LEVEL!!!"
 		}
-		if (levelsLeft == 0) {
+		if (left == 0) {
 			return "YES! YOU FINISHED THE GAME!"
 		}
-		return "GOOD WORK! ONLY %(levelsLeft) TO GO!"
+		return "GOOD WORK! ONLY %(left) TO GO!"
 	}
 
 	TIC(){
@@ -68,6 +73,10 @@ class Game is TIC {
 		} else if (status == "load") {
 			_currentLevel = TIC.pmem(0)
 			loadLevel()
+		} else if (status == "gameover") {
+			// Provide a game over screen?
+			// TODO: Add Highscores
+			TIC.reset()
 		}
 
 		// Update the game state.
@@ -103,6 +112,9 @@ class Game is TIC {
 
 		// Render the game on the screen.
 		_game.draw()
+
+		// Handle the GUI
+		gui()
 	}
 
 	loadLevel() {
@@ -112,6 +124,17 @@ class Game is TIC {
 
 			// TODO: Provide a WIN screen?
 			TIC.reset()
+		}
+
+		// Save existing state if needed.
+		var score = 0
+		var lives = 3
+		if (_game) {
+			var player = _game["player"]
+			if (player) {
+				score = player.score
+				lives = player.lives
+			}
 		}
 
 		// Set up the correct game state.
@@ -127,14 +150,48 @@ class Game is TIC {
 		_game.prioritize("logo")
 		_game.prioritize("trophy gem")
 
-		// Center the camera.
-		var player = _game["player"]
-		if (player) {
-			_game.center = player.center
+		// Center the camera and save the data.
+		var newplayer = _game["player"]
+		if (newplayer) {
+			_game.center = newplayer.center
+			newplayer.lives = lives
+			newplayer.score = score
 		}
 
 		if (_currentLevel > 0) {
 			TIC.pmem(0, _currentLevel)
+		}
+	}
+
+	gui() {
+		if (!_game) {
+			return
+		}
+
+		var player = _game["player"]
+		if (!player) {
+			return
+		}
+
+		var xpadding = 2
+		var ypadding = 1
+
+		TIC.print("SCORE: %(player.score.toString)", xpadding, ypadding, 0)
+		TIC.print("SCORE: %(player.score.toString)", 0, 0, 11)
+
+		var level = levelsLeft() * -1 + 7
+		var levelText = "LEVEL: %(level)"
+		var levelWidth = TIC.print(levelText, -999, -999)
+		TIC.print(levelText, 240 / 2 - levelWidth / 2 + xpadding, ypadding, 0)
+		TIC.print(levelText, 240 / 2 - levelWidth / 2, 0, 11)
+
+		var davesWidth = TIC.print("DAVES: ", -999, -999)
+		var daveSpriteWidth = 8
+		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3 + xpadding, ypadding, 0)
+		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3, 0, 11)
+
+		for (i in 0..player.lives) {
+			TIC.spr(495, 240 - daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
 		}
 	}
 }

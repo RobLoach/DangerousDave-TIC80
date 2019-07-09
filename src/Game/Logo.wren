@@ -12,7 +12,7 @@ class Logo is SpriteEntity {
 
 		_menuList = [
 			"Start Game",
-			"Load Game",
+			"Continue",
 			"Quit"
 		]
 	}
@@ -52,7 +52,7 @@ class Logo is SpriteEntity {
 		if (TIC.btnp(4) || TIC.btnp(5) || TIC.btnp(6) || TIC.btnp(7)) {
 			if (_menuList[_selection] == "Start Game") {
 				parent["level"].status = "complete"
-			} else if (_menuList[_selection] == "Load Game") {
+			} else if (_menuList[_selection] == "Continue") {
 				var canLoad = TIC.pmem(0)
 				if (canLoad > 0) {
 					parent["level"].status = "load"
@@ -81,7 +81,7 @@ class Logo is SpriteEntity {
 			var levelToLoad = TIC.pmem(0)
 			for (item in _menuList) {
 				var color = 0
-				if (item == "Load Game" && levelToLoad == 0) {
+				if (item == "Continue" && levelToLoad == 0) {
 					color = 3
 				}
 

@@ -7,6 +7,8 @@ import "Bullet"
 class Player is AnimationEntity {
 	construct new(tile, level) {
 		_level = level
+		_lives = 3
+		_score = 0
 
 		super()
 
@@ -51,6 +53,13 @@ class Player is AnimationEntity {
 		_state = "idle"
 		currentFrame=frames[0]
 		_automated = false
+		_sounds = {
+			"walking": 1,
+			"jump": 3,
+			"jetpack": 4,
+			"shoot": 4
+		}
+		_channel = 0
 
 		_jetpack = 0
 		_ammo = 0
@@ -58,6 +67,10 @@ class Player is AnimationEntity {
 		_reloadTimerStart = 60 * 1
 	}
 
+	lives{_lives}
+	lives=(v){_lives=v}
+	score{_score}
+	score=(v){_score=v}
 	level{_level}
 
 	ammo{_ammo}
@@ -80,6 +93,8 @@ class Player is AnimationEntity {
 			if (right >= 240) {
 				parent["level"].status = "complete"
 			}
+			TIC.sfx(1)
+
 			super()
 			return
 		}
@@ -183,6 +198,19 @@ class Player is AnimationEntity {
 			}
 		}
 
+		if (_state == "walking") {
+			TIC.sfx(1)
+		}
+		if (_state == "jumping") {
+			TIC.sfx(_sounds["jump"], 6 * 10 + velocity.y * 8, -1, _channel)
+		}
+		if (_state == "falling") {
+			TIC.sfx(_sounds["jump"], 6 * 10 + -velocity.y * 8, -1, _channel)
+		}
+		if (_state == "jetpack") {
+			TIC.sfx(_sounds["jetpack"])
+		}
+
 		// Apply the desired y change.
 		y = y + velocity.y
 
@@ -266,6 +294,7 @@ class Player is AnimationEntity {
 			var bullet = Bullet.new(this, "player")
 			parent.add(bullet)
 			_reloadTimer = _reloadTimerStart
+			TIC.sfx(2, 2*8, 50, 3, 15, 2)
 		}
 	}
 
@@ -282,7 +311,17 @@ class Player is AnimationEntity {
 		}
 	}
 
+	die() {
+		_lives = _lives - 1
+		if (_lives >= 0) {
+			reset()
+		} else {
+			parent["level"].status = "gameover"
+		}
+	}
+
 	reset() {
+		_state = "idle"
 		position = _level.start
 	}
 }

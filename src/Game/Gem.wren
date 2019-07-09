@@ -9,6 +9,7 @@ class Gem is AnimationEntity {
 		_player = null
 		_level = level
 		_sound = 0
+		_channel = 3
 
 		name = gemName
 
@@ -48,15 +49,17 @@ class Gem is AnimationEntity {
 		}
 		if (!_player) {
 			_player = _level["player"]
-		} else if (collisionRect(_player)) {
+		} else if (collisionRect(_player.boundingBox())) {
 			_active = false
-			TIC.sfx(_sound)
+			TIC.sfx(_sound, 12 * 12, -1, _channel)
 
 			if (name == "gun gem") {
-				_player.ammo = 10
+				_player.ammo = 9999
 			} else if (name == "jetpack gem") {
 				_player.jetpack = 60*30
 			}
+
+			_player.score = _player.score + _points
 		}
 
 		super()
@@ -71,7 +74,8 @@ class Gem is AnimationEntity {
 		// If the Trophy was taken, display a message.
 		if (name == "trophy gem") {
  			var textWidth = TIC.print("GET TO THE DOOR!", -999, -999, 14)
- 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 / 2 + 5, 14)
+ 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2 + 2, 136 - 10 + 1, 0)
+ 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 - 10, 11)
 		}
 	}
 }

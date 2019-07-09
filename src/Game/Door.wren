@@ -7,6 +7,9 @@ class Door is SpriteEntity {
 		_manager = manager
 		_player = null
 		_trophy = null
+
+		_sound = 2
+		_channel = 3
 	}
 
 	update() {
@@ -18,6 +21,8 @@ class Door is SpriteEntity {
 		} else if (_player) {
 			if (!_trophy.active && collisionRect(_player.boundingBox())) {
 				parent["level"].status = "complete"
+
+				TIC.sfx(_sound, 3 * 12, -1, 3)
 			}
 		}
 	}

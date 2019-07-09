@@ -78,7 +78,7 @@ class Bullet is AnimationEntity {
 			} else {
 				if (_player.boundingBox().collisionRect(collide)) {
 					// TODO: Death animation
-					_player.reset()
+					_player.die()
 					return delete()
 				}
 			}
