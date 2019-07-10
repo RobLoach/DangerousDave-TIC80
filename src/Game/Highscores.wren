@@ -13,7 +13,7 @@ class Highscores is RectangleEntity {
 
 		_highscores = [
 			{
-				"name": "Rob",
+				"name": "ROB",
 				"score": 800,
 				"level": 1
 			},

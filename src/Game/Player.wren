@@ -53,13 +53,6 @@ class Player is AnimationEntity {
 		_state = "idle"
 		currentFrame=frames[0]
 		_automated = false
-		_sounds = {
-			"walking": 1,
-			"jump": 3,
-			"jetpack": 4,
-			"shoot": 4
-		}
-		_channel = 0
 
 		_jetpack = 0
 		_ammo = 0
@@ -205,16 +198,16 @@ class Player is AnimationEntity {
 		}
 
 		if (_state == "walking") {
-			TIC.sfx(1)
+			Sound.walking()
 		}
 		if (_state == "jumping") {
-			TIC.sfx(_sounds["jump"], 5 * 12 + velocity.y * 24, -1, _channel)
+			Sound.jumping(velocity.y)
 		}
 		if (_state == "falling") {
-			TIC.sfx(_sounds["jump"], 5 * 12 + -velocity.y * 24, -1, _channel)
+			Sound.falling(velocity.y)
 		}
 		if (_state == "jetpack") {
-			TIC.sfx(_sounds["jetpack"])
+			Sound.jetpack()
 		}
 
 		// Apply the desired y change.

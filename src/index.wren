@@ -17,16 +17,16 @@ class Game is TIC {
 		var transition = ["transition", 0, 19, 30, 6]
 		_levels = [
 			//testroom,
-			["MainMenu", 0, 34, 30, 17],
+			["MainMenu", 166, 0, 20, 17],
 			["Level1", 0, 0, 38, 19],
 			transition,
-			["Level2", 0, 51, 101, 19],
+			["Level2", 0, 38, 101, 19],
 			transition,
-			["Level3", 0, 70, 197, 19],
+			["Level3", 0, 57, 197, 19],
 			transition,
-			["Level4", 0, 89, 197, 19],
+			["Level4", 0, 76, 197, 19],
 			transition,
-			["Level5", 0, 108, 197, 19],
+			["Level5", 0, 95, 197, 19],
 			transition,
 			["Level6", 38, 0, 127, 19],
 			transition,
@@ -124,6 +124,8 @@ class Game is TIC {
 				if (_game.right > level.right) {
 					_game.right = level.right
 				}
+			} else {
+				_game.center = level.center
 			}
 		}
 
