@@ -1,5 +1,6 @@
 import "../Engine/Entity/SpriteEntity"
 import "Highscores"
+import "Sound"
 
 class Logo is SpriteEntity {
 	construct new(manager) {
@@ -48,8 +49,10 @@ class Logo is SpriteEntity {
 		// Menu input
 		if (TIC.btnp(0)) {
 			_selection = _selection - 1
+			Sound.menuMove()
 		} else if (TIC.btnp(1)) {
 			_selection = _selection + 1
+			Sound.menuMove()
 		}
 
 		// Keep selection in bounds.
@@ -63,9 +66,11 @@ class Logo is SpriteEntity {
 		if (TIC.btnp(4) || TIC.btnp(5) || TIC.btnp(6) || TIC.btnp(7)) {
 			if (_menuList[_selection] == "Start Game") {
 				parent["level"].status = "complete"
+				Sound.menuSelect()
 			} else if (_menuList[_selection] == "Continue") {
 				var canLoad = TIC.pmem(0)
 				if (canLoad > 0) {
+					Sound.menuSelect()
 					parent["level"].status = "load"
 				}
 			} else if (_menuList[_selection] == "Highscores") {

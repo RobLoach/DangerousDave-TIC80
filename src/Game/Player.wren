@@ -162,7 +162,7 @@ class Player is AnimationEntity {
 			if (TIC.btnp(5) || TIC.btnp(6)) {
 				_state = "jumping"
 				frames = _animations["jumping"]
-				velocity.y = -0.45
+				velocity.y = -0.9
 			}
 		} else if (_state == "jumping" || _state == "falling") {
 			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
@@ -173,6 +173,12 @@ class Player is AnimationEntity {
 					velocity.y = 0
 				}
 			}
+
+			// Fall off the bottom of the world.
+			if (top > _level.bottom + height * 2) {
+				bottom = _level.top - height * 2
+			}
+
 		// Idle or Walking
 		} else if (_state == "idle" || _state == "walking") {
 			// Allow Jumping
@@ -202,10 +208,10 @@ class Player is AnimationEntity {
 			TIC.sfx(1)
 		}
 		if (_state == "jumping") {
-			TIC.sfx(_sounds["jump"], 6 * 10 + velocity.y * 8, -1, _channel)
+			TIC.sfx(_sounds["jump"], 5 * 12 + velocity.y * 24, -1, _channel)
 		}
 		if (_state == "falling") {
-			TIC.sfx(_sounds["jump"], 6 * 10 + -velocity.y * 8, -1, _channel)
+			TIC.sfx(_sounds["jump"], 5 * 12 + -velocity.y * 24, -1, _channel)
 		}
 		if (_state == "jetpack") {
 			TIC.sfx(_sounds["jetpack"])
@@ -241,20 +247,19 @@ class Player is AnimationEntity {
 
 		// Move horizontally.
 		var horizontalSpeed = 1
-		if (TIC.btn(2)) {
-			x = x - horizontalSpeed
-			flip = 1
-			if (_state == "idle" || _state == "walking") {
-				frames = _animations["walking"]
-				_state = "walking"
-			}
-		}
 		if (TIC.btn(3)) {
 			x = x + horizontalSpeed
 			flip = 0
 			if (_state == "idle" || _state == "walking") {
 				_state = "walking"
 				frames = _animations["walking"]
+			}
+		} else if (TIC.btn(2)) {
+			x = x - horizontalSpeed
+			flip = 1
+			if (_state == "idle" || _state == "walking") {
+				frames = _animations["walking"]
+				_state = "walking"
 			}
 		}
 
@@ -294,7 +299,7 @@ class Player is AnimationEntity {
 			var bullet = Bullet.new(this, "player")
 			parent.add(bullet)
 			_reloadTimer = _reloadTimerStart
-			TIC.sfx(2, 2*8, 50, 3, 15, 2)
+			Sound.shoot()
 		}
 	}
 

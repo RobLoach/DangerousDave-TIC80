@@ -1,6 +1,7 @@
 import "../Engine/Entity/AnimationEntity"
 import "../Engine/Entity/SpriteEntity"
 import "../Engine/Math/Rectangle"
+import "Sound"
 
 class Bullet is AnimationEntity {
 	construct new(source, bulletType) {
@@ -67,6 +68,7 @@ class Bullet is AnimationEntity {
 				if (enemy.collisionRect(collide)) {
 					// TODO: Death animation
 					enemy.delete()
+					Sound.explode()
 					return delete()
 				}
 			}
@@ -79,6 +81,7 @@ class Bullet is AnimationEntity {
 				if (_player.boundingBox().collisionRect(collide)) {
 					// TODO: Death animation
 					_player.die()
+					Sound.explode()
 					return delete()
 				}
 			}

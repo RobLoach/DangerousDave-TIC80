@@ -22,6 +22,7 @@ class Item is AnimationEntity {
 				SpriteEntity[6, 10, 2]
 			]
 			animationSpeed = 5
+			_sound = 5
 		}
 
 		_pointAmount = {
@@ -56,7 +57,7 @@ class Item is AnimationEntity {
 			if (name == "GunItem") {
 				_player.ammo = 9999
 			} else if (name == "JetpackItem") {
-				_player.jetpack = 60*30
+				_player.jetpack = 60*15
 			}
 
 			_player.score = _player.score + _points
@@ -73,9 +74,10 @@ class Item is AnimationEntity {
 
 		// If the Trophy was taken, display a message.
 		if (name == "TrophyItem") {
+			var ybottom = 5
  			var textWidth = TIC.print("GET TO THE DOOR!", -999, -999, 14)
- 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2 + 2, 136 - 10 + 1, 0)
- 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 - 10, 11)
+ 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2 + 2, 136 - ybottom + 1, 0)
+ 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 - ybottom, 11)
 		}
 	}
 }

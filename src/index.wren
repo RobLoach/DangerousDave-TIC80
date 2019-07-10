@@ -13,7 +13,7 @@ class Game is TIC {
 
 	construct new(){
 		_currentLevel = 0
-		var testroom = ["test", 0, 26, 26, 8]
+		var testroom = ["test", 0, 25, 32, 9]
 		var transition = ["transition", 0, 19, 30, 6]
 		_levels = [
 			//testroom,
@@ -29,15 +29,15 @@ class Game is TIC {
 			["Level5", 0, 108, 197, 19],
 			transition,
 			["Level6", 38, 0, 127, 19],
+			transition,
+			["Level7", 30, 19, 158, 19],
 			transition
 		]
 		loadLevel()
-
-		_tester = true
 	}
 
 	currentLevelNumber() {
-		return levelsLeft() * -1 + 7
+		return levelsLeft() * -1 + 8
 	}
 
 	levelsLeft() {
@@ -82,7 +82,6 @@ class Game is TIC {
 			loadLevel()
 		} else if (status == "gameover") {
 			// TODO: Provide a game over screen.
-
 			var playa = _game["player"]
 
 			// TODO: Allow custom highscore names.
@@ -191,7 +190,7 @@ class Game is TIC {
 			return
 		}
 
-		var xpadding = 2
+		var xpadding = 1
 		var ypadding = 1
 
 		TIC.print("SCORE: %(player.score.toString)", xpadding, ypadding, 0)
@@ -210,6 +209,27 @@ class Game is TIC {
 
 		for (i in 0..player.lives) {
 			TIC.spr(495, 240 - daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
+		}
+
+		// Jetpack
+		if (player.jetpack > 0) {
+			var maxjetpack = 60*15
+			var jetpackbarWidth = 40
+			var percent = player.jetpack / maxjetpack * jetpackbarWidth
+
+			var jetpackTextWidth = TIC.print("JETPACK", -999, -999, 15, false, 1, true)
+			TIC.print("JETPACK", xpadding, 136 - 5 + ypadding, 0, false, 1, true)
+			TIC.print("JETPACK", 0, 136 - 5, 11, false, 1, true)
+			TIC.rect(jetpackTextWidth + 5, 136 - 5, jetpackbarWidth, 5, 14)
+			TIC.rect(jetpackTextWidth + 6, 136 - 4, percent - 2, 3, 6)
+		}
+
+		// Gun
+		if (player.ammo > 0) {
+			var gunTextWidth = TIC.print("GUN", -999, -999, 15, false, 1, true)
+			TIC.print("GUN", 240 - gunTextWidth - 16 + xpadding, 136 - 5 + ypadding, 0, false, 1, true)
+			TIC.print("GUN", 240 - gunTextWidth - 16, 136 - 5, 11, false, 1, true)
+			TIC.spr(SpriteEntity[15, 26], 240 - 12, 136 - 8, 1, 1, 0, 0, 1, 1)
 		}
 	}
 }
