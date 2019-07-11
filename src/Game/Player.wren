@@ -167,11 +167,6 @@ class Player is AnimationEntity {
 				}
 			}
 
-			// Fall off the bottom of the world.
-			if (top > _level.bottom + height * 2) {
-				bottom = _level.top - height * 2
-			}
-
 		// Idle or Walking
 		} else if (_state == "idle" || _state == "walking") {
 			// Allow Jumping
@@ -195,6 +190,11 @@ class Player is AnimationEntity {
 					velocity.y = 0.375 // Gravity * 15
 				}
 			}
+		}
+
+		// Fall off the bottom of the world.
+		if (top > _level.bottom + height * 2) {
+			bottom = _level.top - height * 2
 		}
 
 		if (_state == "walking") {

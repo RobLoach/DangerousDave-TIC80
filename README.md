@@ -4,6 +4,12 @@
 
 Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/wiki/John_Romero) back in 1988, and released on DOS in 1990. This is the first few levels of Dangerous Dave, remade using [TIC-80](https://tic.computer) and [Wren](http://wren.io), in an attempt to see if it could be done.
 
+## Features
+
+- Highscores
+- Save and Continue
+- Tweaked physics
+
 ## TODO
 
 - Remaining levels

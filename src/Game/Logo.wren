@@ -74,7 +74,7 @@ class Logo is SpriteEntity {
 					parent["level"].status = "load"
 				}
 			} else if (_menuList[_selection] == "Highscores") {
-				_highscores = Highscores.new(_manager)
+				showHighscores()
 			} else if (_menuList[_selection] == "Quit") {
 				TIC.exit()
 				return
@@ -82,6 +82,11 @@ class Logo is SpriteEntity {
 		}
 
 		super()
+	}
+
+	showHighscores() {
+		_menuShown = true
+		_highscores = Highscores.new(_manager)
 	}
 
 	draw(camera) {

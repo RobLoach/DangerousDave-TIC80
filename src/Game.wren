@@ -4,19 +4,26 @@
 // saveid: dangerousdave
 // script: wren
 
+/**
+ * TODO: Color Palette
+ * The following is a color palette that may work, but needs tweaking:
+ * pal: 0000004424340000e34e4a4fcb7d4d047d007d0000757161007dcfffaa5def000041ff41e800e85dbefffff700efefef
+ */
+
 import "Engine/Entity/EntityManager" for EntityManager
 import "Engine/Entity/SpriteEntity" for SpriteEntity
 import "Game/Level" for Level
 import "Game/Highscores" for Highscores
+import "Engine/Engine"
 
 class Game is TIC {
 
 	construct new(){
+
 		_currentLevel = 0
-		var testroom = ["test", 0, 25, 32, 9]
 		var transition = ["transition", 0, 19, 30, 6]
 		_levels = [
-			//testroom,
+			// ["TestRoom", 0, 25, 32, 9],
 			["MainMenu", 166, 0, 20, 17],
 			["Level1", 0, 0, 38, 19],
 			transition,
@@ -31,17 +38,19 @@ class Game is TIC {
 			["Level6", 38, 0, 127, 19],
 			transition,
 			["Level7", 30, 19, 158, 19],
+			transition,
+			["Level8", 0, 114, 197, 19],
 			transition
 		]
 		loadLevel()
 	}
 
 	currentLevelNumber() {
-		return levelsLeft() * -1 + 8
+		var numTransitions = 8
+		return levelsLeft() * -1 + numTransitions + 1
 	}
 
 	levelsLeft() {
-		var numTransitions = 4
 		var menuCount = 1
 		var levelsLeft = 0
 
@@ -94,6 +103,9 @@ class Game is TIC {
 
 			_currentLevel = 0
 			loadLevel()
+			var logo = _game["logo"]
+			logo.showHighscores()
+
 		}
 
 		// Update the game state.
@@ -132,8 +144,8 @@ class Game is TIC {
 		// Render the game on the screen.
 		_game.draw()
 
-		// Handle the GUI
-		gui()
+		// Handle the heads up display.
+		hud()
 	}
 
 	loadLevel() {
@@ -177,12 +189,16 @@ class Game is TIC {
 			newplayer.score = score
 		}
 
+		// Save the game
 		if (_currentLevel > 0) {
 			TIC.pmem(0, _currentLevel)
 		}
 	}
 
-	gui() {
+	/**
+	 * Displays the heads-up display GUI.
+	 */
+	hud() {
 		if (!_game) {
 			return
 		}
@@ -192,23 +208,26 @@ class Game is TIC {
 			return
 		}
 
+		// Shadow padding
 		var xpadding = 1
 		var ypadding = 1
 
+		// Score
 		TIC.print("SCORE: %(player.score.toString)", xpadding, ypadding, 0)
 		TIC.print("SCORE: %(player.score.toString)", 0, 0, 11)
 
+		// Level
 		var level = currentLevelNumber()
 		var levelText = "LEVEL: %(level)"
 		var levelWidth = TIC.print(levelText, -999, -999)
 		TIC.print(levelText, 240 / 2 - levelWidth / 2 + xpadding, ypadding, 0)
 		TIC.print(levelText, 240 / 2 - levelWidth / 2, 0, 11)
 
+		// Daves
 		var davesWidth = TIC.print("DAVES: ", -999, -999)
 		var daveSpriteWidth = 8
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3 + xpadding, ypadding, 0)
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3, 0, 11)
-
 		for (i in 0..player.lives) {
 			TIC.spr(495, 240 - daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
 		}
