@@ -76,7 +76,7 @@ class Item is AnimationEntity {
 		if (name == "TrophyItem") {
 			var ybottom = 5
  			var textWidth = TIC.print("GET TO THE DOOR!", -999, -999, 14)
- 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2 + 2, 136 - ybottom + 1, 0)
+ 			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2 + 1, 136 - ybottom + 1, 0)
  			TIC.print("GO THRU THE DOOR", 240 / 2 - textWidth / 2, 136 - ybottom, 11)
 		}
 	}
