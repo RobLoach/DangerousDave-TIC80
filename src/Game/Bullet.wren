@@ -58,7 +58,7 @@ class Bullet is AnimationEntity {
 		var collide = Rectangle.new(x, y, width, height / 2)
 		if (!_level) {
 			_level = parent["level"]
-		} else if (tilemap_collision(collide)) {
+		} else if (_level.tileCollision(this, "wall")) {
 			return delete()
 		}
 
@@ -87,19 +87,5 @@ class Bullet is AnimationEntity {
 			}
 		}
 		super()
-	}
-
-	tilemap_collision(rect) {
-		for(i in 0..._level.mapWidth) {
-			for(j in 0..._level.mapHeight) {
-				var t = _level[i, j]
-				if(_level.tileTypes[t] == "wall") {
-					if (rect.collisionRect(i * 8, j * 8, 8, 8)) {
-						return true
-					}
-				}
-			}
-		}
-		return false
 	}
 }

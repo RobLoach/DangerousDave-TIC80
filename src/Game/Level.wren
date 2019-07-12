@@ -225,4 +225,37 @@ class Level is MapEntity {
 	}
 
 	tileTypes{_tileTypes}
+
+
+
+	tileCollision(rect, type) {
+		var left_tile = (rect.left / 8).floor
+		var right_tile = (rect.right / 8).floor
+		var top_tile = (rect.top / 8).floor
+		var bottom_tile = (rect.bottom / 8).floor
+
+		if(left_tile < 0) {
+			left_tile = 0
+		}
+		if(right_tile >= mapWidth) {
+			right_tile = mapWidth
+		}
+		if(top_tile < 0) {
+			top_tile = 0
+		}
+		if(bottom_tile >= mapHeight) {
+			bottom_tile = mapHeight
+		}
+
+		for (i in left_tile..right_tile) {
+			for (j in top_tile..bottom_tile) {
+				var tiletype = this[i, j]
+				if (tileTypes[tiletype] == type) {
+					if (rect.collisionRect(i * 8, j * 8, 8, 8)) {
+						return Rectangle.new(i * 8, j * 8, 8, 8)
+					}
+				}
+			}
+		}
+	}
 }

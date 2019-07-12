@@ -120,7 +120,7 @@ class Player is AnimationEntity {
 		// See if we can enable Climbing.
 		if (_state == "jumping" || _state == "falling" || _state == "idle" || _state == "walking") {
 			if (TIC.btn(0)) {
-				if (tilemap_collision(this, "tree")) {
+				if (_level.tileCollision(this, "tree")) {
 					_state = "climbing"
 					frames=_animations["climbing"]
 				}
@@ -145,7 +145,7 @@ class Player is AnimationEntity {
 			velocity.y = 0
 
 			// Check if we are no longer on a tree.
-			if (!tilemap_collision(boundingBox(), "tree")) {
+			if (!_level.tileCollision(boundingBox(), "tree")) {
 				_state = "falling"
 				frames = _animations["falling"]
 				velocity.y = 0.375 // Gravity * 15
@@ -216,7 +216,7 @@ class Player is AnimationEntity {
 		// Test allowing the vertical move.
 		var xPadding = 4
 		var collide = boundingBox()
-		var collisionRect = tilemap_collision(collide, "wall")
+		var collisionRect = _level.tileCollision(collide, "wall")
 		if(collisionRect) {
 			y = oldPosition.y
 			if (y < collisionRect.y) {
@@ -258,7 +258,7 @@ class Player is AnimationEntity {
 
 		// Test to make sure it's possible.
 		collide = boundingBox()
-		collisionRect = tilemap_collision(collide, "wall")
+		collisionRect = _level.tileCollision(collide, "wall")
 		if (collisionRect) {
 			x = oldPosition.x
 
@@ -293,19 +293,6 @@ class Player is AnimationEntity {
 			parent.add(bullet)
 			_reloadTimer = _reloadTimerStart
 			Sound.shoot()
-		}
-	}
-
-	tilemap_collision(rect, type) {
-		for(i in 0..._level.mapWidth) {
-			for(j in 0..._level.mapHeight) {
-				var t = _level[i, j]
-				if(_level.tileTypes[t] == type) {
-					if (rect.collisionRect(i * 8, j * 8, 8, 8)) {
-						return Rectangle.new(i*8,j*8, 8, 8)
-					}
-				}
-			}
 		}
 	}
 
