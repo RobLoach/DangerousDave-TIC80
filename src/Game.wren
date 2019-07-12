@@ -23,7 +23,7 @@ class Game is TIC {
 		_currentLevel = 0
 		var transition = ["transition", 0, 19, 30, 6]
 		_levels = [
-			["TestRoom", 0, 25, 32, 9],
+			//["TestRoom", 0, 25, 32, 9],
 			["MainMenu", 166, 0, 20, 17],
 			["Level1", 0, 0, 38, 19],
 			transition,
