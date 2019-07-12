@@ -120,7 +120,7 @@ class Player is AnimationEntity {
 		// See if we can enable Climbing.
 		if (_state == "jumping" || _state == "falling" || _state == "idle" || _state == "walking") {
 			if (TIC.btn(0)) {
-				if (_level.tileCollision(this, "tree")) {
+				if (_level.tileCollision(boundingBox(), "tree")) {
 					_state = "climbing"
 					frames=_animations["climbing"]
 				}
@@ -169,11 +169,14 @@ class Player is AnimationEntity {
 
 		// Idle or Walking
 		} else if (_state == "idle" || _state == "walking") {
-			// Allow Jumping
+			// Allow Jumping?
 			if (TIC.btnp(0) || TIC.btnp(5) || TIC.btnp(6)) {
-				_state = "jumping"
-				frames = _animations["jumping"]
-				velocity.y = -0.9
+				// Don't allow jumping when on top of the level
+				if (top > _level.top) {
+					_state = "jumping"
+					frames = _animations["jumping"]
+					velocity.y = -0.9
+				}
 			}
 		// Jetpack
 		} else if (_state == "jetpack") {
@@ -192,11 +195,22 @@ class Player is AnimationEntity {
 			}
 		}
 
-		// Fall off the bottom of the world.
-		if (top > _level.bottom + height * 2) {
-			bottom = _level.top - height * 2
+		// Keep the player in the level bounds.
+		if (top > _level.bottom + height) {
+			bottom = _level.top - height
+			return
+		}
+		if (bottom < _level.top) {
+			bottom = _level.top
+			return
+		}
+		if (left < _level.left) {
+			left = _level.left
+		} else if (right > _level.right) {
+			right = _level.right
 		}
 
+		// Enable the sound effects.
 		if (_state == "walking") {
 			Sound.walking()
 		}
