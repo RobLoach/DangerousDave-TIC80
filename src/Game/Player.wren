@@ -13,6 +13,9 @@ class Player is AnimationEntity {
 		super()
 
 		_animations = {
+			"none": [
+				SpriteEntity[0, 0]
+			],
 			"idle": [
 				SpriteEntity[1, 8, 2],
 				SpriteEntity[1, 8, 2],
@@ -42,6 +45,12 @@ class Player is AnimationEntity {
 			],
 			"climbing-still": [
 				SpriteEntity[3, 8, 2]
+			],
+			"dying": [
+				SpriteEntity[3, 11, 2],
+				SpriteEntity[4, 11, 2],
+				SpriteEntity[5, 11, 2],
+				SpriteEntity[6, 11, 2]
 			]
 		}
 
@@ -88,6 +97,26 @@ class Player is AnimationEntity {
 			}
 			TIC.sfx(1)
 
+			super()
+			return
+		}
+
+		// Handle the Death state.
+		if (_state == "dying") {
+			_dieTimer = _dieTimer - 1
+			if (_dieTimer <= 0) {
+				_lives = _lives - 1
+				if (_lives >= 0) {
+					reset()
+				} else {
+					parent["level"].status = "gameover"
+				}
+			}
+			if (_dieTimer <= 60) {
+				frames = _animations["none"]
+			}
+			velocity.x = 0
+			velocity.y = 0.1
 			super()
 			return
 		}
@@ -311,16 +340,18 @@ class Player is AnimationEntity {
 	}
 
 	die() {
-		_lives = _lives - 1
-		if (_lives >= 0) {
-			reset()
-		} else {
-			parent["level"].status = "gameover"
+		if (_state != "dying") {
+			Sound.explode()
+			_dieTimer = 180
+			_state = "dying"
+			frames = _animations["dying"]
+			animationSpeed = 10
 		}
 	}
 
 	reset() {
 		_state = "idle"
 		position = _level.start
+		animationSpeed = 5
 	}
 }

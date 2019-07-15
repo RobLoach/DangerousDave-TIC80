@@ -66,9 +66,7 @@ class Bullet is AnimationEntity {
 			var enemies = parent.getEntities("enemy")
 			for (enemy in enemies) {
 				if (enemy.collisionRect(collide)) {
-					// TODO: Death animation
-					enemy.delete()
-					Sound.explode()
+					enemy.die()
 					return delete()
 				}
 			}
@@ -79,9 +77,7 @@ class Bullet is AnimationEntity {
 				_player = parent["player"]
 			} else {
 				if (_player.boundingBox().collisionRect(collide)) {
-					// TODO: Death animation
 					_player.die()
-					Sound.explode()
 					return delete()
 				}
 			}

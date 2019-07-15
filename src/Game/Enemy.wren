@@ -8,6 +8,14 @@ class Enemy is Death {
 
 		tags.add("enemy")
 		_shootTimerStart = 150
+		_dieTimer = 180
+		_deathAnimation = [
+			SpriteEntity[3, 11, 2],
+			SpriteEntity[4, 11, 2],
+			SpriteEntity[5, 11, 2],
+			SpriteEntity[6, 11, 2]
+		]
+		_state = "flying"
 
 		if (name == "spider enemy") {
 			frames = [
@@ -88,7 +96,28 @@ class Enemy is Death {
 		_shootTimer = _shootTimerStart
 	}
 
+	die() {
+		Sound.explode()
+		frames = _deathAnimation
+		velocity.x = 0
+		velocity.y = 0.1
+		_dieTimer = 120
+		tileWidth = 2
+		tileHeight = 2
+		_state = "dying"
+		animationSpeed = 10
+	}
+
 	update() {
+		if (_state == "dying") {
+			_dieTimer = _dieTimer - 1
+			if (_dieTimer <= 0) {
+				delete()
+				return
+			}
+			super()
+			return
+		}
 
 		// Move up and down on the screen.
 		// TODO: Figure out the correct pattern.
