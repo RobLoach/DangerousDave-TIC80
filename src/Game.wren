@@ -17,41 +17,52 @@ import "Game/Highscores" for Highscores
 import "Engine/Engine"
 
 class Game is TIC {
-
-	construct new(){
-
-		_currentLevel = 0
-		var transition = ["transition", 0, 19, 30, 6]
+	construct new() {
+		// Set up the list of levels. Each level is an array of...
+		// [name, x, y, width, height, levelNum]
+		var transition = ["transition", 0, 19, 30, 6, -1]
 		_levels = [
-			//["TestRoom", 0, 25, 32, 9],
-			["MainMenu", 166, 0, 20, 17],
-			["Level1", 0, 0, 38, 19],
+			//["TestRoom", 0, 25, 32, 9, 99],
+			["MainMenu", 166, 0, 20, 17, 0],
+ 			["Level1", 0, 0, 38, 19, 1],
+ 			transition,
+ 			["Level2", 0, 38, 101, 19, 2],
 			transition,
-			["Level2", 0, 38, 101, 19],
+			["Level3", 0, 57, 197, 19, 3],
 			transition,
-			["Level3", 0, 57, 197, 19],
+			["Level4", 0, 76, 197, 19, 4],
 			transition,
-			["Level4", 0, 76, 197, 19],
+			["Level5", 0, 95, 197, 19, 5],
 			transition,
-			["Level5", 0, 95, 197, 19],
+			["Level6", 38, 0, 127, 19, 6],
 			transition,
-			["Level6", 38, 0, 127, 19],
+			["Level7", 30, 19, 158, 19, 7],
 			transition,
-			["Level7", 30, 19, 158, 19],
-			transition,
-			["Level8", 0, 114, 197, 19],
+			["Level8", 0, 114, 197, 19, 8],
 			transition
 		]
+
+		// Finally, load the main menu as the initial "level".
+		_currentLevel = 0
 		loadLevel()
 	}
 
+	/**
+	 * Get the current level.
+	 */
 	currentLevelNumber() {
-		var numTransitions = 8
-		return levelsLeft() * -1 + numTransitions + 1
+		var currentLevelNum = _levels[_currentLevel][5]
+		// Check if it's a transition screen.
+		if (currentLevelNum == -1) {
+			return _levels[_currentLevel - 1][5]
+		}
+		return currentLevelNum
 	}
 
+	/**
+	 * Retrieve the amount of levels that are left.
+	 */
 	levelsLeft() {
-		var menuCount = 1
 		var levelsLeft = 0
 
 		// Count how many levels are left.
@@ -77,23 +88,51 @@ class Game is TIC {
 		return "GOOD WORK! ONLY %(left) TO GO!"
 	}
 
+	/**
+	 * Called every tick to update game state, and render.
+	 *
+	 * @see https://github.com/nesbox/TIC-80/wiki/tic
+	 */
 	TIC(){
 		// Clear the screen to Black.
 		TIC.cls(0)
 
 		// Check if the level has been completed.
 		var status = _game["level"].status
+
+		// The player finished a level.
 		if (status == "complete") {
+			var prevLevel = currentLevelNumber()
 			_currentLevel = _currentLevel + 1
+
+			// Check if the player completed the game.
+			if(_currentLevel >= _levels.count) {
+				// Get the player's score, and show the highscore screen.
+				var playa = _game["player"]
+				var highscores = Highscores.new(this)
+				highscores.addHighscore({
+					"name": "DAV",
+					"score": playa.score,
+					"level": prevLevel
+				})
+
+				// Load up the main menu screen.
+				_currentLevel = 0
+			}
+
+			// Load the new menu, and shoe highscores if needed.
 			loadLevel()
+			var logo = _game["logo"]
+			if (logo) {
+				logo.showHighscores()
+			}
+		// Load the game from a previous state.
 		} else if (status == "load") {
 			_currentLevel = TIC.pmem(0)
 			loadLevel()
+		// The player lost all their lives.
 		} else if (status == "gameover") {
-			// TODO: Provide a game over screen.
 			var playa = _game["player"]
-
-			// TODO: Allow custom highscore names.
 			var highscores = Highscores.new(this)
 			highscores.addHighscore({
 				"name": "DAV",
@@ -145,11 +184,11 @@ class Game is TIC {
 
 		// Render the game on the screen.
 		_game.draw()
-
-		// Handle the heads up display.
-		hud()
 	}
 
+	/**
+	 * Set up the new level based on what's in _currentLevel.
+	 */
 	loadLevel() {
 		// Ensure we are loading a valid level.
 		if (_currentLevel >= _levels.count) {
@@ -198,19 +237,22 @@ class Game is TIC {
 	}
 
 	/**
-	 * Displays the heads-up display GUI.
+	 * Display the heads-up display GUI.
+	 *
+	 * @see https://github.com/nesbox/TIC-80/wiki/OVR
 	 */
-	hud() {
+	OVR() {
 		if (!_game) {
 			return
 		}
 
+		// Only show the GUI if there's a player on the screen.
 		var player = _game["player"]
 		if (!player) {
 			return
 		}
 
-		// Shadow padding
+		// Text shadow padding
 		var xpadding = 1
 		var ypadding = 1
 
@@ -230,8 +272,8 @@ class Game is TIC {
 		var daveSpriteWidth = 8
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3 + xpadding, ypadding, 0)
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3, 0, 11)
-		for (i in 0..player.lives) {
-			TIC.spr(495, 240 - daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
+		for (i in 0...player.lives) {
+			TIC.spr(495, 240 - daveSpriteWidth * 3 + daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
 		}
 
 		// Jetpack
