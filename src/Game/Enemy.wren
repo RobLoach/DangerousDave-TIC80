@@ -101,7 +101,7 @@ class Enemy is Death {
 			_shootTimerStart = 160
 		}
 		_t = 0
-		_shootTimer = _shootTimerStart
+		_shootTimer = Engine.random(_shootTimerStart)
 	}
 
 	die() {

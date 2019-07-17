@@ -12,7 +12,7 @@ Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/
 - Highscores
 - Refined Physics
 
-## TODO
+## Wishlist
 
 - Mimic Enemy Movement Patterns
 - Additional Sound Effects

@@ -58,7 +58,7 @@ class Item is AnimationEntity {
 				if (name == "GunItem") {
 					_player.ammo = 9999
 				} else if (name == "JetpackItem") {
-					_player.jetpack = 60*15
+					_player.jetpack = 60*20
 				}
 
 				_player.score = _player.score + _points

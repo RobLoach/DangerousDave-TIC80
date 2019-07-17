@@ -1,4 +1,20 @@
+import "random" for Random
+
 class Engine {
+
+	static start() {
+		// Initialize the random number generator.
+		__random = Random.new()
+	}
+
+	static random(min, max) {
+		return __random.int(max) + min
+	}
+
+	static random(max) {
+		return __random.int(max)
+	}
+
 	static loadPalette(paletteString) {
 		for (i in 0...16) {
 			TIC.trace(Engine.substr(paletteString, i*6, 2))

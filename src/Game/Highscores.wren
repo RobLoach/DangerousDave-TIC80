@@ -9,7 +9,7 @@ class Highscores is RectangleEntity {
 		y = 136 / 2 - height / 2
 		name = "highscores"
 		_manager = manager
-		_highscoreSize = 5
+		_highscoreSize = 5 // Byte size of a highscore
 
 		_highscores = [
 			{

@@ -18,6 +18,7 @@ import "Engine/Engine"
 
 class Game is TIC {
 	construct new() {
+		Engine.start()
 		// Set up the list of levels. Each level is an array of...
 		// [name, x, y, width, height, levelNum]
 		var transition = ["transition", 0, 19, 30, 6, -1]
@@ -288,7 +289,7 @@ class Game is TIC {
 
 		// Jetpack
 		if (player.jetpack > 0) {
-			var maxjetpack = 60*15
+			var maxjetpack = 60*20
 			var jetpackbarWidth = 40
 			var percent = player.jetpack / maxjetpack * jetpackbarWidth
 

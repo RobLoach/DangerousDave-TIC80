@@ -1,5 +1,6 @@
 import "../Engine/Entity/SpriteEntity"
 import "../Engine/Entity/AnimationEntity"
+import "../Engine/Engine"
 
 class Death is AnimationEntity {
 	construct new(tile, deathName) {
@@ -16,6 +17,7 @@ class Death is AnimationEntity {
 				SpriteEntity[2, 10, 2]
 			]
 			animationSpeed = 5
+			currentFrame = Engine.random(frames.count - 1)
 		}
 
 		if (name == "tentacle death") {
@@ -25,6 +27,7 @@ class Death is AnimationEntity {
 				SpriteEntity[1, 11, 2],
 				SpriteEntity[2, 11, 2]
 			]
+			currentFrame = Engine.random(frames.count - 1)
 			animationSpeed = 7
 		}
 
@@ -36,6 +39,7 @@ class Death is AnimationEntity {
 				SpriteEntity[7, 3, 2],
 				SpriteEntity[0, 4, 2]
 			]
+			currentFrame = Engine.random(frames.count - 1)
 			animationSpeed = 6
 		}
 
