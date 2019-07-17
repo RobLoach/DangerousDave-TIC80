@@ -75,6 +75,7 @@ class Player is AnimationEntity {
 	score=(v){_score=v}
 	level{_level}
 
+	state{_state}
 	ammo{_ammo}
 	ammo=(v){_ammo=v}
 	jetpack{_jetpack}

@@ -15,7 +15,7 @@ class Enemy is Death {
 			SpriteEntity[5, 11, 2],
 			SpriteEntity[6, 11, 2]
 		]
-		_state = "flying"
+		state = "flying"
 
 		if (name == "spider enemy") {
 			frames = [
@@ -24,6 +24,7 @@ class Enemy is Death {
 
 			tileWidth = 4
 			tileHeight = 2
+			_shootTimerStart = 170
 		}
 		if (name == "slicer enemy") {
 			frames = [
@@ -32,6 +33,7 @@ class Enemy is Death {
 
 			tileWidth = 4
 			tileHeight = 2
+			_shootTimerStart = 160
 		}
 		if (name == "sun enemy") {
 			frames = [
@@ -41,6 +43,7 @@ class Enemy is Death {
 
 			tileWidth = 2
 			tileHeight = 2
+			_shootTimerStart = 180
 		}
 		if (name == "baton enemy") {
 			frames = [
@@ -50,6 +53,7 @@ class Enemy is Death {
 
 			tileWidth = 2
 			tileHeight = 2
+			_shootTimerStart = 130
 		}
 		if (name == "saucer enemy") {
 			frames = [
@@ -61,6 +65,7 @@ class Enemy is Death {
 
 			tileWidth = 2
 			tileHeight = 1
+			_shootTimerStart = 200
 		}
 		if (name == "sandwich enemy") {
 			frames = [
@@ -71,6 +76,7 @@ class Enemy is Death {
 
 			tileWidth = 2
 			tileHeight = 1
+			_shootTimerStart = 190
 		}
 		if (name == "green enemy") {
 			frames = [
@@ -80,6 +86,7 @@ class Enemy is Death {
 
 			tileWidth = 2
 			tileHeight = 2
+			_shootTimerStart = 180
 		}
 		if (name == "grey disk enemy") {
 			frames = [
@@ -91,6 +98,7 @@ class Enemy is Death {
 
 			tileWidth = 2
 			tileHeight = 2
+			_shootTimerStart = 160
 		}
 		_t = 0
 		_shootTimer = _shootTimerStart
@@ -104,12 +112,12 @@ class Enemy is Death {
 		_dieTimer = 120
 		tileWidth = 2
 		tileHeight = 2
-		_state = "dying"
+		state = "dying"
 		animationSpeed = 10
 	}
 
 	update() {
-		if (_state == "dying") {
+		if (state == "dying") {
 			_dieTimer = _dieTimer - 1
 			if (_dieTimer <= 0) {
 				delete()

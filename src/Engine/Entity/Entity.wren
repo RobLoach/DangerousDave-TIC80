@@ -56,4 +56,11 @@ class Entity is Rectangle {
 		x = x + _velocity.x
 		y = y + _velocity.y
 	}
+
+	prioritize() {
+		var oldName = _name
+		_name = "PRIORITIZETIME"
+		parent.prioritize(_name)
+		name = oldName
+	}
 }

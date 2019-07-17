@@ -62,13 +62,15 @@ class Highscores is RectangleEntity {
 		var start = 1
 		var i = 0
 		for (highscore in _highscores) {
-			var startIndex = start + i * _highscoreSize
-			TIC.pmem(startIndex, highscore["name"].bytes[0])
-			TIC.pmem(startIndex + 1, highscore["name"].bytes[1])
-			TIC.pmem(startIndex + 2, highscore["name"].bytes[2])
-			TIC.pmem(startIndex + 3, highscore["score"])
-			TIC.pmem(startIndex + 4, highscore["level"])
-			i = i + 1
+			if (highscore["name"]) {
+				var startIndex = start + i * _highscoreSize
+				TIC.pmem(startIndex, highscore["name"].bytes[0])
+				TIC.pmem(startIndex + 1, highscore["name"].bytes[1])
+				TIC.pmem(startIndex + 2, highscore["name"].bytes[2])
+				TIC.pmem(startIndex + 3, highscore["score"])
+				TIC.pmem(startIndex + 4, highscore["level"])
+				i = i + 1
+			}
 		}
 	}
 

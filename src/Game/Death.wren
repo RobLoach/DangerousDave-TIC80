@@ -6,6 +6,7 @@ class Death is AnimationEntity {
 		super([tile])
 
 		name = deathName
+		_state = "active"
 
 		if (name == "fire death") {
 			frames = [
@@ -42,7 +43,15 @@ class Death is AnimationEntity {
 		tileHeight = 2
 	}
 
+	state{_state}
+	state=(v){_state=v}
+
 	update() {
+		if (_state == "dying") {
+			super()
+			return
+		}
+
 		if (!_player) {
 			_player = parent["player"]
 		} else if (collisionRect(_player.boundingBox())) {

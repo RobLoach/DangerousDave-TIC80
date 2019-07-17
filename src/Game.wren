@@ -24,9 +24,9 @@ class Game is TIC {
 		_levels = [
 			//["TestRoom", 0, 25, 32, 9, 99],
 			["MainMenu", 166, 0, 20, 17, 0],
- 			["Level1", 0, 0, 38, 19, 1],
- 			transition,
- 			["Level2", 0, 38, 101, 19, 2],
+			["Level1", 0, 0, 38, 19, 1],
+			transition,
+			["Level2", 0, 38, 101, 19, 2],
 			transition,
 			["Level3", 0, 57, 197, 19, 3],
 			transition,
@@ -39,6 +39,10 @@ class Game is TIC {
 			["Level7", 30, 19, 158, 19, 7],
 			transition,
 			["Level8", 0, 114, 197, 19, 8],
+			transition,
+			["Level9", 102, 38, 138, 19, 9],
+			transition,
+			["Level10", 198, 57, 42, 79, 10],
 			transition
 		]
 
@@ -218,6 +222,10 @@ class Game is TIC {
 		_game.add(theLevel)
 
 		// Fix the display order of the entities.
+		var enemies = _game.getEntities("enemy")
+		for (enemy in enemies) {
+			enemy.prioritize()
+		}
 		_game.prioritize("player")
 		_game.prioritize("logo")
 		_game.prioritize("TrophyItem")
@@ -272,8 +280,10 @@ class Game is TIC {
 		var daveSpriteWidth = 8
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3 + xpadding, ypadding, 0)
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3, 0, 11)
-		for (i in 0...player.lives) {
-			TIC.spr(495, 240 - daveSpriteWidth * 3 + daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
+		if (player.lives >= 0) {
+			for (i in 0...player.lives) {
+				TIC.spr(495, 240 - daveSpriteWidth * 3 + daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
+			}
 		}
 
 		// Jetpack

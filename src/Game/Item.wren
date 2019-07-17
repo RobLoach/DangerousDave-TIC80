@@ -50,17 +50,19 @@ class Item is AnimationEntity {
 		}
 		if (!_player) {
 			_player = _level["player"]
-		} else if (collisionRect(_player.boundingBox())) {
-			_active = false
-			TIC.sfx(_sound, 12 * 12, -1, _channel)
+		} else if (_player.state != "dying") {
+			if (collisionRect(_player.boundingBox())) {
+				_active = false
+				TIC.sfx(_sound, 12 * 12, -1, _channel)
 
-			if (name == "GunItem") {
-				_player.ammo = 9999
-			} else if (name == "JetpackItem") {
-				_player.jetpack = 60*15
+				if (name == "GunItem") {
+					_player.ammo = 9999
+				} else if (name == "JetpackItem") {
+					_player.jetpack = 60*15
+				}
+
+				_player.score = _player.score + _points
 			}
-
-			_player.score = _player.score + _points
 		}
 
 		super()
