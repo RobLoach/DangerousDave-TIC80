@@ -68,7 +68,10 @@ class Logo is SpriteEntity {
 				parent["level"].status = "complete"
 				Sound.menuSelect()
 			} else if (_menuList[_selection] == "Continue") {
-				var canLoad = TIC.pmem(0)
+				var canLoad = 0
+				if (Engine.saveGameEnabled) {
+					canLoad = TIC.pmem(0)
+				}
 				if (canLoad > 0) {
 					Sound.menuSelect()
 					parent["level"].status = "load"
@@ -109,7 +112,10 @@ class Logo is SpriteEntity {
 		TIC.rectb(menuLocation.x, menuLocation.y, menuLocation.width, menuLocation.height, 0)
 
 		var index = 0
-		var levelToLoad = TIC.pmem(0)
+		var levelToLoad = 0
+		if (Engine.saveGameEnabled) {
+			levelToLoad = TIC.pmem(0)
+		}
 		for (item in _menuList) {
 			var color = 0
 			if (item == "Continue" && levelToLoad == 0) {

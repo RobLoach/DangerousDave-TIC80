@@ -5,7 +5,10 @@ class Engine {
 	static start() {
 		// Initialize the random number generator.
 		__random = Random.new()
+		__saveGameEnabled = false
 	}
+
+	static saveGameEnabled{__saveGameEnabled}
 
 	static random(min, max) {
 		return __random.int(max) + min

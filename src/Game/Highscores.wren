@@ -59,6 +59,9 @@ class Highscores is RectangleEntity {
 	}
 
 	saveHighscores() {
+		if (!Engine.saveGameEnabled) {
+			return
+		}
 		var start = 1
 		var i = 0
 		for (highscore in _highscores) {
@@ -75,6 +78,9 @@ class Highscores is RectangleEntity {
 	}
 
 	loadHighscores() {
+		if (!Engine.saveGameEnabled) {
+			return _highscores
+		}
 		var start = 1
 		var i = 0
 		var startIndex = start + i * _highscoreSize

@@ -133,7 +133,11 @@ class Game is TIC {
 			}
 		// Load the game from a previous state.
 		} else if (status == "load") {
-			_currentLevel = TIC.pmem(0)
+			if (Engine.saveGameEnabled) {
+				_currentLevel = TIC.pmem(0)
+			} else {
+				_currentLevel = 1
+			}
 			loadLevel()
 		// The player lost all their lives.
 		} else if (status == "gameover") {
@@ -240,7 +244,7 @@ class Game is TIC {
 		}
 
 		// Save the game
-		if (_currentLevel > 0) {
+		if (_currentLevel > 0 && Engine.saveGameEnabled) {
 			TIC.pmem(0, _currentLevel)
 		}
 	}
