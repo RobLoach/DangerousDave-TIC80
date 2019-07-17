@@ -4,6 +4,11 @@
 
 Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/wiki/John_Romero) back in 1988, and released on DOS in 1990. This is the first 9 levels of Dangerous Dave, with a re-designed final level. The remake was built with [TIC-80](https://tic.computer), as a thank you to John Romero.
 
+[![Title Screen](src/Resources/TitleScreen.gif)](https://tic.computer/play?cart=880)
+
+[Play Online](https://tic.computer/play?cart=880)
+
+
 ## Features
 
 - 9 Levels from the Original
@@ -14,6 +19,7 @@ Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/
 
 ## Wishlist
 
+- Warpzones
 - Mimic Enemy Movement Patterns
 - Additional Sound Effects
 - Music
