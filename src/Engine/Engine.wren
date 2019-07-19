@@ -5,7 +5,7 @@ class Engine {
 	static start() {
 		// Initialize the random number generator.
 		__random = Random.new()
-		__saveGameEnabled = false
+		__saveGameEnabled = true
 	}
 
 	static saveGameEnabled{__saveGameEnabled}

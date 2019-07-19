@@ -84,7 +84,7 @@ class Highscores is RectangleEntity {
 		var start = 1
 		var i = 0
 		var startIndex = start + i * _highscoreSize
-		while (startIndex <= 250) {
+		while (startIndex <= 200) {
 			var char1 = TIC.pmem(startIndex)
 			var char2 = TIC.pmem(startIndex + 1)
 			var char3 = TIC.pmem(startIndex + 2)

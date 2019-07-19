@@ -7,7 +7,7 @@ import "Bullet"
 class Player is AnimationEntity {
 	construct new(tile, level) {
 		_level = level
-		_lives = 3
+		lives = 3
 		_score = 0
 
 		super()
@@ -69,8 +69,22 @@ class Player is AnimationEntity {
 		_reloadTimerStart = 60 * 1
 	}
 
-	lives{_lives}
-	lives=(v){_lives=v}
+	lives{
+		var pmemLives = TIC.pmem(255)
+		if (pmemLives == null) {
+			TIC.pmem(255, 3)
+			return 3
+		}
+		return pmemLives
+	}
+	lives=(v){
+		if (v<0) {
+			v = 0
+		} else if (v > 1000) {
+			v = 1000
+		}
+		TIC.pmem(255, v)
+	}
 	score{_score}
 	score=(v){_score=v}
 	level{_level}
@@ -106,11 +120,11 @@ class Player is AnimationEntity {
 		if (_state == "dying") {
 			_dieTimer = _dieTimer - 1
 			if (_dieTimer <= 0) {
-				_lives = _lives - 1
-				if (_lives >= 0) {
-					reset()
-				} else {
+				if (lives == 0) {
 					parent["level"].status = "gameover"
+				} else {
+					lives = lives - 1
+					reset()
 				}
 			}
 			if (_dieTimer <= 60) {
