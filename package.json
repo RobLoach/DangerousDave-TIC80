@@ -4,12 +4,26 @@
   "version": "0.2.1",
   "private": true,
   "scripts": {
-    "test": "scriptpacker build src/Game.wren --output=node_modules/cart.wren --minify --prefix=\"// title: Dangerous Dave\n// author: RobLoach\n// desc: Remake of the 1988 PC classic, Dangerous Dave\n// saveid: dangerousdave\n// input: gamepad\n// script: wren\"",
-    "posttest": "tic80 cart.tic -code node_modules/cart.wren -sprites src/Resources/sprites.gif"
+    "build": "scriptpacker build src/Game.wren --output=node_modules/cart.wren --minify --prefix=\"// title: Dangerous Dave\n// author: RobLoach\n// desc: Remake of the 1988 PC classic, Dangerous Dave\n// saveid: dangerousdave\n// input: gamepad\n// script: wren\"",
+    "run": "tic80 cart.tic -code-watch node_modules/cart.wren -sprites src/Resources/sprites.gif",
+    "start": "run-p build watch run",
+    "watch": "npm-watch",
+    "test": "run-s build run"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "wren",
+      "quiet": false
+    }
   },
   "author": "Rob Loach",
   "license": "GPL-3.0",
-  "dependencies": {
-    "scriptpacker": "^2.0.1"
+  "devDependencies": {
+    "scriptpacker": "^2.0.1",
+    "npm-run-all": "^4.1.5",
+    "npm-watch": "^0.6.0"
   }
 }
