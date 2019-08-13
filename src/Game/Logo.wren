@@ -92,8 +92,28 @@ class Logo is SpriteEntity {
 		_highscores = Highscores.new(_manager)
 	}
 
+	drawCredit() {
+		var lineHeight = 6
+		var top = 136 - lineHeight * 5
+		var left = 3
+		var shadowPadding = 2
+
+		var text = "John Romero"
+		TIC.print(text, left + shadowPadding, top + 1, 0)
+		TIC.print(text, left, top, 15)
+
+		text = "Rob Loach"
+		TIC.print(text, left + shadowPadding, top + lineHeight + 1, 0)
+		TIC.print(text, left, top + lineHeight, 15)
+
+		text = "(c) 1990 SOFTDISK, INC"
+		TIC.print(text, left + shadowPadding, top + lineHeight * 3 + 1, 0)
+		TIC.print(text, left, top + lineHeight * 3, 15)
+	}
+
 	draw(camera) {
 		super(camera)
+		drawCredit()
 
 		// Display the Menu.
 		if (!_menuShown) {
