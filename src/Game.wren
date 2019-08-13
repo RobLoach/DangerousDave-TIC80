@@ -266,25 +266,26 @@ class Game is TIC {
 		}
 
 		// Text shadow padding
+		var guiColor = 11
 		var xpadding = 1
 		var ypadding = 1
 
 		// Score
 		TIC.print("SCORE: %(player.score.toString)", xpadding, ypadding, 0)
-		TIC.print("SCORE: %(player.score.toString)", 0, 0, 11)
+		TIC.print("SCORE: %(player.score.toString)", 0, 0, guiColor)
 
 		// Level
 		var level = currentLevelNumber()
 		var levelText = "LEVEL: %(level)"
 		var levelWidth = TIC.print(levelText, -999, -999)
 		TIC.print(levelText, 240 / 2 - levelWidth / 2 + xpadding, ypadding, 0)
-		TIC.print(levelText, 240 / 2 - levelWidth / 2, 0, 11)
+		TIC.print(levelText, 240 / 2 - levelWidth / 2, 0, guiColor)
 
 		// Daves
 		var davesWidth = TIC.print("DAVES: ", -999, -999)
 		var daveSpriteWidth = 8
 		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3 + xpadding, ypadding, 0)
-		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3, 0, 11)
+		TIC.print("DAVES: ", 240 - davesWidth - daveSpriteWidth * 3, 0, guiColor)
 		if (player.lives >= 0) {
 			for (i in 0...player.lives) {
 				TIC.spr(495, 240 - daveSpriteWidth * 3 + daveSpriteWidth * i, 0, 1, 1, 0, 0, 1, 1)
@@ -299,7 +300,7 @@ class Game is TIC {
 
 			var jetpackTextWidth = TIC.print("JETPACK", -999, -999, 15, false, 1, true)
 			TIC.print("JETPACK", xpadding, 136 - 5 + ypadding, 0, false, 1, true)
-			TIC.print("JETPACK", 0, 136 - 5, 11, false, 1, true)
+			TIC.print("JETPACK", 0, 136 - 5, guiColor, false, 1, true)
 			TIC.rect(jetpackTextWidth + 5, 136 - 5, jetpackbarWidth, 5, 14)
 			TIC.rect(jetpackTextWidth + 6, 136 - 4, percent - 2, 3, 6)
 		}
@@ -308,7 +309,7 @@ class Game is TIC {
 		if (player.ammo > 0) {
 			var gunTextWidth = TIC.print("GUN", -999, -999, 15, false, 1, true)
 			TIC.print("GUN", 240 - gunTextWidth - 16 + xpadding, 136 - 5 + ypadding, 0, false, 1, true)
-			TIC.print("GUN", 240 - gunTextWidth - 16, 136 - 5, 11, false, 1, true)
+			TIC.print("GUN", 240 - gunTextWidth - 16, 136 - 5, guiColor, false, 1, true)
 			TIC.spr(SpriteEntity[15, 26], 240 - 12, 136 - 8, 1, 1, 0, 0, 1, 1)
 		}
 	}
