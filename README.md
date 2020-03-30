@@ -1,4 +1,4 @@
-# Dangerous Dave for TIC-80
+# [Dangerous Dave for TIC-80](https://tic.computer/play?cart=880)
 
 > [Dangerous Dave](https://en.wikipedia.org/wiki/Dangerous_Dave) remake in [TIC-80](https://tic.computer).
 
@@ -7,7 +7,6 @@ Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/
 [![Title Screen](src/Resources/TitleScreen.gif)](https://tic.computer/play?cart=880)
 
 [Play Online](https://tic.computer/play?cart=880)
-
 
 ## Features
 
@@ -27,19 +26,20 @@ Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/
 - Color Palette
 - Multiplayer
 
+## Play
+
+1. [Play Online](https://tic.computer/play?cart=880)
+2. Alternatively, [install TIC-80](https://tic.computer/create)
+3. [Download cart.tic](https://github.com/RobLoach/DangerousDave-TIC80/raw/master/cart.tic)
+4. Run the cart through TIC-80
+
 ## Development
 
 To compile the game, you'll need [Node.js](https://nodejs.org)...
 
-```
-npm it
-```
-
-The above will build *cart.wren*, which can then run through `tic80`.
-
-```
-tic80 cart.tic -code node_modules/cart.wren -sprites src/Resources/sprites.gif
-```
+1. [Install TIC-80](https://tic.computer/create)
+2. Install [Node.js](https://nodejs.org/en/)
+3. Run `npm it`
 
 ## License
 
