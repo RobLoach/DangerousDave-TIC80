@@ -117,6 +117,9 @@ class Logo is SpriteEntity {
 
 		// Display the Menu.
 		if (!_menuShown) {
+            var pressKey = "Press Z/X keys"
+            var pressKeyWidth = TIC.print(pressKey, -999, -999)
+            TIC.print(pressKey, 240 / 2 - pressKeyWidth / 2, 100)
 			return
 		}
 
