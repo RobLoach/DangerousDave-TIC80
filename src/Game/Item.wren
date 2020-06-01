@@ -53,7 +53,7 @@ class Item is AnimationEntity {
 		} else if (_player.state != "dying") {
 			if (collisionRect(_player.boundingBox())) {
 				_active = false
-				TIC.sfx(_sound, 12 * 12, -1, _channel)
+				TIC.sfx(_sound, "F-7", -1, _channel)
 
 				if (name == "GunItem") {
 					_player.ammo = 9999

@@ -1,7 +1,7 @@
 {
   "name": "tic80-dangerousdave",
   "description": "Remake of the 1988 PC classic, Dangerous Dave. Built using TIC-80.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "build": "scriptpacker build src/Game.wren --output=node_modules/cart.wren --minify --prefix=\"// title: Dangerous Dave\n// author: RobLoach\n// desc: Remake of the 1988 PC classic, Dangerous Dave\n// saveid: dangerousdave\n// input: gamepad\n// script: wren\"",

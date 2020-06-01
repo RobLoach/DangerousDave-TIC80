@@ -3,6 +3,7 @@ import "../Engine/Entity/SpriteEntity"
 import "../Engine/Math/Vector"
 import "../Engine/Math/Rectangle"
 import "Bullet"
+import "Sound"
 
 class Player is AnimationEntity {
 	construct new(tile, level) {
@@ -110,7 +111,7 @@ class Player is AnimationEntity {
 			if (right >= 240) {
 				parent["level"].status = "complete"
 			}
-			TIC.sfx(1)
+			Sound.walking()
 
 			super()
 			return
