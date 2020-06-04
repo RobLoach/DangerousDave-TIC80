@@ -1,9 +1,3 @@
-// title: Dangerous Dave
-// author: RobLoach
-// desc: Remake of the 1988 PC classic, Dangerous Dave
-// saveid: dangerousdave
-// script: wren
-
 /**
  * TODO: Color Palette
  * The following is a color palette that may work, but needs tweaking:
