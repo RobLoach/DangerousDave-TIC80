@@ -1,41 +1,41 @@
 {
-  "name": "dangerousdave",
-  "title": "Dangerous Dave",
-  "description": "Remake of the 1988 PC classic, Dangerous Dave, for TIC-80.",
-  "homepage": "https://github.com/RobLoach/DangerousDave-TIC80",
-  "version": "1.1.1",
-  "private": true,
-  "config": {
-      "author": "RobLoach",
-    "input": "gamepad",
-    "language": "wren"
-  },
-  "scripts": {
-    "build": "scriptpacker build src/Game.wren --output=node_modules/cart.wren --minify --prefix=\"// title: $npm_package_title\n// desc: $npm_package_description\n// homepage: $npm_package_homepage\n// version: $npm_package_version\n// author: $npm_package_config_author\n// saveid: $npm_package_name\n// input: $npm_package_config_input\n// script: $npm_package_config_language\n// license: $npm_package_license\n\"",
-    "run": "tic80 cart.tic -code-watch node_modules/cart.wren -sprites src/Resources/sprites.gif",
-    "start": "run-p build watch run",
-    "watch": "npm-watch",
-    "test": "run-s build run"
-  },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "extensions": "wren",
-      "quiet": false
+    "name": "dangerousdave",
+    "title": "Dangerous Dave",
+    "description": "Remake of the 1988 PC classic, Dangerous Dave, for TIC-80.",
+    "homepage": "https://github.com/RobLoach/DangerousDave-TIC80",
+    "version": "1.2.0",
+    "private": true,
+    "config": {
+        "author": "RobLoach",
+        "input": "gamepad",
+        "language": "wren"
+    },
+    "scripts": {
+        "build": "scriptpacker build src/Game.wren --output=node_modules/cart.wren --minify --prefix=\"// title: $npm_package_title\n// desc: $npm_package_description\n// homepage: $npm_package_homepage\n// version: $npm_package_version\n// author: $npm_package_config_author\n// saveid: $npm_package_name\n// input: $npm_package_config_input\n// script: $npm_package_config_language\n// license: $npm_package_license\n\"",
+        "run": "tic80 cart.tic -code-watch node_modules/cart.wren -sprites src/Resources/sprites.gif",
+        "start": "run-p build watch run",
+        "watch": "npm-watch",
+        "test": "run-s build run"
+    },
+    "watch": {
+        "build": {
+            "patterns": [
+                "src"
+            ],
+            "extensions": "wren",
+            "quiet": false
+        }
+    },
+    "author": [
+        {
+            "name": "Rob Loach",
+            "url": "https://robloach.net"
+        }
+    ],
+    "license": "GPL-3.0",
+    "devDependencies": {
+        "scriptpacker": "^2.4.0",
+        "npm-run-all": "^4.1.5",
+        "npm-watch": "^0.7.0"
     }
-  },
-  "author": [
-      {
-          "name": "Rob Loach",
-          "url": "https://robloach.net"
-      }
-  ],
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "scriptpacker": "^2.4.0",
-    "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.6.0"
-  }
 }
