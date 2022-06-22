@@ -6,7 +6,7 @@ Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/
 
 [![Title Screen](src/Resources/TitleScreen.gif)](https://tic.computer/play?cart=880)
 
-[Play Online](https://tic.computer/play?cart=880)
+[Play Online](https://tic80.com/play?cart=880)
 
 ## Features
 
