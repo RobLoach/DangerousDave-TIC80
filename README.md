@@ -1,10 +1,10 @@
-# [Dangerous Dave for TIC-80](https://tic.computer/play?cart=880)
+# [Dangerous Dave for TIC-80](https://tic80.com/play?cart=880)
 
-> [Dangerous Dave](https://en.wikipedia.org/wiki/Dangerous_Dave) remake in [TIC-80](https://tic.computer).
+> [Dangerous Dave](https://en.wikipedia.org/wiki/Dangerous_Dave) remake in [TIC-80](https://tic80.com).
 
-Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/wiki/John_Romero) back in 1988, and released on DOS in 1990. This is the first 9 levels of Dangerous Dave, with a re-designed final level. The remake was built with [TIC-80](https://tic.computer), as a thank you to John Romero.
+Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/wiki/John_Romero) back in 1988, and released on DOS in 1990. This is the first 9 levels of Dangerous Dave, with a re-designed final level. The remake was built with [TIC-80](https://tic80.com), as a thank you to John Romero.
 
-[![Title Screen](src/Resources/TitleScreen.gif)](https://tic.computer/play?cart=880)
+[![Title Screen](src/Resources/TitleScreen.gif)](https://tic80.com/play?cart=880)
 
 [Play Online](https://tic80.com/play?cart=880)
 
@@ -28,8 +28,8 @@ Dangerous Dave was originally written by [John Romero](https://en.wikipedia.org/
 
 ## Play
 
-1. [Play Online](https://tic.computer/play?cart=880)
-2. Alternatively, [install TIC-80](https://tic.computer/create)
+1. [Play Online](https://tic80.com/play?cart=880)
+2. Alternatively, [install TIC-80](https://tic80.com/create)
 3. [Download cart.tic](https://github.com/RobLoach/DangerousDave-TIC80/raw/master/cart.tic)
 4. Run the cart through TIC-80
 
